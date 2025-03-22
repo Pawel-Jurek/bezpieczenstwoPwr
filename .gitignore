@@ -12,3 +12,4 @@ __pycache__/
 /covtrace
 /covhtml
 /doc/build/.doctrees/**
+.ipynb_checkpoints/
