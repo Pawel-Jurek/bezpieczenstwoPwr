@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Page for Bot Simulation</title>
+    <script>
+        // Po załadowaniu dokumentu dodajemy nasłuchiwanie zdarzeń
+        document.addEventListener("DOMContentLoaded", function() {
+            // Rejestracja zdarzeń klawiatury
+            document.addEventListener("keydown", function(e) {
+                console.log("Key down: " + e.key);
+            });
+            document.addEventListener("keyup", function(e) {
+                console.log("Key up: " + e.key);
+            });
+            // Rejestracja zdarzeń myszy
+            document.addEventListener("mousemove", function(e) {
+                console.log("Mouse move: " + e.clientX + ", " + e.clientY);
+            });
+            document.addEventListener("click", function(e) {
+                console.log("Mouse click at: " + e.clientX + ", " + e.clientY);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Strona Testowa dla Symulacji Botów</h1>
+    <p>Ta strona służy do rejestracji zdarzeń klawiatury oraz ruchów myszy. Otwórz konsolę przeglądarki (F12) aby zobaczyć logi.</p>
+</body>
+</html>
