@@ -1,5 +1,3 @@
-import { debounce } from "./utils/debounce.js";
-
 // check if script is being run in the browser
 if (globalThis.window === undefined) {
   throw new Error(
@@ -34,6 +32,21 @@ type DataRecord = {
   y: number;
 } & Pick<Object, "toString">;
 
+export const debounce = <T extends unknown[]>(
+  callback: (...args: T) => void,
+  delay: number
+) => {
+  let timeoutTimer: ReturnType<typeof setTimeout>;
+
+  return (...args: T) => {
+    clearTimeout(timeoutTimer);
+
+    timeoutTimer = setTimeout(() => {
+      callback(...args);
+    }, delay);
+  };
+};
+
 // TODO: change to real function, I currently assume it takes 250ms to check data with model
 // and assume "human" in 9 out of 10 calls
 async function _simulatedRunCheck(
@@ -41,7 +54,7 @@ async function _simulatedRunCheck(
 ): Promise<{ type: "bot" | "human" }> {
   return new Promise((resolve) =>
     setTimeout(() => {
-      resolve({ type: Math.random() > 0.9 ? "human" : "bot" });
+      resolve({ type: Math.random() < 0.9 ? "human" : "bot" });
     }, 250)
   );
 }

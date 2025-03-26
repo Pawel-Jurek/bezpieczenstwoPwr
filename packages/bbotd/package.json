@@ -1,6 +1,6 @@
 {
   "name": "bbotd",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Detect basic bots on your website easily.",
   "keywords": [
     "bot-detection",
@@ -14,10 +14,9 @@
   "files": [
     "dist"
   ],
-  "license": "MIT",
-  "author": ". . .",
+  "author": "Krystian Ogonowski",
   "type": "module",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "test",
     "build": "tsc"
