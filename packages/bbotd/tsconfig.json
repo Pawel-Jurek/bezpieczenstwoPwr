@@ -9,6 +9,7 @@
     "moduleDetection": "force",
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
+    "moduleResolution": "node",
 
     /* Strictness */
     "strict": true,
@@ -16,15 +17,18 @@
     "noImplicitOverride": true,
 
     /* If transpiling with TypeScript: */
-    "module": "NodeNext",
+    "module": "ESNext",
     "outDir": "dist",
     "rootDir": "src",
     "sourceMap": true,
 
     /* AND if you're building for a library: */
     "declaration": true,
+    "declarationDir": "dist/types",
 
     /* AND if you're building for a library in a monorepo: */
     "declarationMap": true
-  }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

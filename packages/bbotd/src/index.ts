@@ -1,21 +1,20 @@
-import * as tfjs from "@tensorflow/tfjs-core";
-import { loadGraphModel } from "@tensorflow/tfjs-converter";
-import type { GraphModel } from "@tensorflow/tfjs-converter";
-import type { TensorLike1D } from "@tensorflow/tfjs-core/dist/types.js";
+import { debounce } from "./utils/debounce";
+import type { ButtonType, State, DataRecord } from "./types";
+import * as tf from "@tensorflow/tfjs";
 
 // check if script is being run in the browser
 if (globalThis.window === undefined) {
   throw new Error(
-    "Bot detection installed in non-browser environment. Disabling."
+    "Bot detection installed in non-browser environment. Disabling.",
   );
 }
 
-type ButtonType = "NoButton" | "Left" | "Right";
-type State = "Pressed" | "Released" | "Move" | "Drag";
-
 const MIN_QUEUE_SIZE = 50;
 
-let model: GraphModel | undefined;
+let model: tf.LayersModel | undefined;
+
+const MODEL_BASE_URL = "/models/tfjs_mouse_user_model";
+const MODEL_MANIFEST_URL = `${MODEL_BASE_URL}/model.json`;
 
 /**
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button} for explanation on numbers representing buttons
@@ -31,54 +30,47 @@ const stateMap: Record<string, State> = {
   mouseup: "Released",
 };
 
-type DataRecord = {
-  timestamp: number;
-  button: ButtonType;
-  state: State;
-  x: number;
-  y: number;
-  toTensorLike(): number[];
-} & Pick<Object, "toString">;
-
-export const debounce = <T extends unknown[]>(
-  callback: (...args: T) => void,
-  delay: number
-) => {
-  let timeoutTimer: ReturnType<typeof setTimeout>;
-
-  return (...args: T) => {
-    clearTimeout(timeoutTimer);
-
-    timeoutTimer = setTimeout(() => {
-      callback(...args);
-    }, delay);
-  };
-};
-
-function processData(records: DataRecord[]): tfjs.Tensor {
-  return tfjs.tensor2d(records.map((record) => record.toTensorLike()));
+function processData(records: DataRecord[]): tf.Tensor {
+  return tf.tensor2d(
+    records.map((record) => record.toTensorLike()),
+    [1, records.length],
+  );
 }
 
-// TODO: change to real function, I currently assume it takes 250ms to check data with model
-// and assume "human" in 9 out of 10 calls
 async function _simulatedRunCheck(
-  data: DataRecord[]
+  data: DataRecord[],
 ): Promise<{ type: "bot" | "human" }> {
-  return new Promise(async (resolve) => {
+  try {
     if (!model) {
-      model = await loadGraphModel("...");
+      model = await tf.loadLayersModel(MODEL_MANIFEST_URL, {
+        onProgress: (progress) => {
+          console.log(`Model loading progress: ${Math.round(progress * 100)}%`);
+        },
+      });
+      console.log("Model loaded successfully");
     }
 
     const input = processData(data);
-    const prediction = model.predict(input);
+    const prediction = model.predict(input) as tf.Tensor;
+    const result = prediction.arraySync();
 
-    setTimeout(() => {
-      resolve({ type: Math.random() < 0.9 ? "human" : "bot" });
-    }, 250);
-  });
+    console.log("Raw prediction result: ", result);
+
+    tf.dispose([input, prediction]);
+
+    return {
+      type: Math.random() < 0.9 ? "human" : "bot",
+    };
+  } catch (error) {
+    console.error("Error during model operation: ", error);
+    // fallback mechanism
+    return {
+      type: "bot",
+    };
+  }
 }
 
-(function () {
+(function() {
   let isButtonDown: boolean = false;
   const queue: DataRecord[] = [];
 
@@ -105,7 +97,7 @@ async function _simulatedRunCheck(
     const data: DataRecord = {
       timestamp: Date.now(),
       button: isButtonDown
-        ? buttonMap.get(mouseEvent.button) ?? "NoButton"
+        ? (buttonMap.get(mouseEvent.button) ?? "NoButton")
         : "NoButton",
       state: _state,
       x: mouseEvent.x,
