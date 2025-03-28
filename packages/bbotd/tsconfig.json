@@ -27,7 +27,8 @@
     "declarationDir": "dist/types",
 
     /* AND if you're building for a library in a monorepo: */
-    "declarationMap": true
+    "declarationMap": true,
+    "types": ["vitest/globals"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]
