@@ -1,5 +1,18 @@
 # Usage
 
+The package is available on [npm](https://www.npmjs.com/package/bbotd). But please imoprt it and [@tensorflow/tfjs](https://www.npmjs.com/package/@tensorflow/tfjs) via CDN in `<script>` tag.
+
+Example:
+
+```html
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bbotd"></script>
+
+  <!-- your existing code here-->
+</body>
+```
+
 ## Development
 
 Install dependencies via [npm](https://www.npmjs.com/)
