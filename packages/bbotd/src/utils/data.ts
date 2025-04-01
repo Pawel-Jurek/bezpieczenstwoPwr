@@ -4,8 +4,7 @@ export type State = "Pressed" | "Released" | "Move" | "Drag";
 
 export type DataRecord = {
   timestamp: number;
-  button: number;
-  state: number;
+  eventType: "mousemove" | "mouseup" | "mousedown";
   x: number;
   y: number;
 };
@@ -26,6 +25,12 @@ const STATE_MAP = Object.freeze<Record<State, number>>({
   Drag: 3,
 });
 
+const SMTH_MAP = Object.freeze<Record<string, number>>({
+  mousedown: 0,
+  mouseup: 1,
+  mousemove: 2,
+});
+
 const ALLOWED_EVENT_TYPES: Readonly<string[]> = [
   "mousemove",
   "mousedown",
@@ -42,10 +47,10 @@ class Queue<T> {
   /**
    * @param [maxSize=100]
    */
-  constructor(private readonly maxSize: number = 100) { }
+  constructor(private readonly maxSize: number = 75) { }
 
   enqueue(el: T) {
-    if (this.#queue.length > this.maxSize) {
+    if (this.#queue.length >= this.maxSize) {
       this.#queue.shift();
     }
 
@@ -60,6 +65,10 @@ class Queue<T> {
     this.#queue.length = 0;
   }
 
+  length() {
+    return this.#queue.length;
+  }
+
   [Symbol.iterator](): IterableIterator<T> {
     return this.#queue[Symbol.iterator]();
   }
@@ -72,18 +81,18 @@ export class Data {
 
   constructor(private readonly target: EventTarget = window) { }
 
-  onMouseMove(e: Event) {
+  private onMouseMove(e: Event) {
     if (!isMouseEvent(e)) return;
 
-    const _state = STATE_MAP[e.type as State];
+    const _state = SMTH_MAP[e.type];
+
     if (_state === undefined) {
       return;
     }
 
     const record: DataRecord = {
       timestamp: Date.now(),
-      button: this.#isButtonDown ? e.button : -1,
-      state: _state,
+      eventType: e.type as DataRecord["eventType"],
       x: e.x,
       y: e.y,
     };
@@ -105,11 +114,14 @@ export class Data {
    * Starts tracking mouse events on window
    */
   addListeners() {
-    this.target.addEventListener("mousemove", this.onMouseMove);
-    this.target.addEventListener("mousedown", this.onMouseDown);
-    this.target.addEventListener("mouseup", this.onMouseUp);
+    this.target.addEventListener("mousemove", this.onMouseMove.bind(this));
+    this.target.addEventListener("mousedown", this.onMouseDown.bind(this));
+    this.target.addEventListener("mouseup", this.onMouseUp.bind(this));
   }
 
+  /**
+   * disposes references, preventing memory leaks
+   */
   removeListeners() {
     window.removeEventListener("mousemove", this.onMouseMove);
     window.removeEventListener("mousedown", this.onMouseDown);
@@ -118,15 +130,38 @@ export class Data {
 
   toTensor(): tf.Tensor {
     const q = Array.from(this.#queue);
-    return tf.tensor2d(
+    const tensor = tf.tensor2d(
       q.map((record) => [
-        record.timestamp,
-        record.button,
-        record.state,
-        record.x,
-        record.y,
+        normalizeEventType(record.eventType),
+        normalizeCoord(record.x),
+        normalizeCoord(record.y),
+        normalizeTimestamp(record.timestamp),
       ]),
-      [q.length, 5],
+      [q.length, 4],
     );
+
+    return tensor.reshape([1, q.length, 4]);
   }
+
+  clear(): void {
+    this.#queue.clear();
+  }
+}
+
+function normalizeEventType(eventType: string) {
+  return SMTH_MAP[eventType] ?? -1;
+}
+
+const normalizeTimestamp = (function() {
+  let prevTimestamp: number | undefined;
+
+  return (timestamp: number) => {
+    const diff = timestamp - (prevTimestamp ?? timestamp);
+    prevTimestamp = timestamp;
+    return diff;
+  };
+})();
+
+function normalizeCoord(value: number) {
+  return value / window.innerWidth;
 }

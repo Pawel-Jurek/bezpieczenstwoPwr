@@ -1,54 +1,50 @@
 import * as tf from "@tensorflow/tfjs";
 
 export class Model {
-  #model: tf.LayersModel | tf.GraphModel | undefined;
+  #model: tf.GraphModel | undefined;
 
-  constructor(private readonly manifestUrl: string) { }
-
-  async load(): Promise<tf.GraphModel | tf.LayersModel> {
-    try {
-      this.#model = await tf.loadLayersModel(this.manifestUrl);
-
-      return this.#model;
-    } catch (error) {
-      throw new Error(`Couldn't load model ${error}`);
-    }
+  constructor(private readonly manifestUrl: string) {
+    // FIXME: my browser couldn't load webgl, ideally we'd want to use webgl and fallback to 'cpu'
+    tf.setBackend("cpu");
   }
 
   /**
    * @throws {}
    */
-  async get(): Promise<tf.LayersModel | tf.GraphModel> {
+  async load(): Promise<tf.LayersModel | tf.GraphModel> {
     if (this.#model !== undefined) {
       return this.#model;
     }
 
-    try {
-      this.#model = await tf.loadLayersModel(this.manifestUrl);
+    this.#model = await tf.loadGraphModel(this.manifestUrl);
 
-      return this.#model;
-    } catch (error) {
-      throw new Error(`Couldn't load model ${error}`);
-    }
+    return this.#model;
   }
 
   /**
+   * Returns probability of behavior being bot
    * @example
    * @throws {}
    */
-  predict(input: tf.Tensor | tf.Tensor[]): "bot" | "human" {
-    // TODO: change ReturnType
+  async predict(input: tf.Tensor): Promise<number> {
     if (this.#model === undefined) {
       throw new Error("Model is not loaded yet.");
     }
 
-    const prediction = this.#model.predict(input) as tf.Tensor;
-    const result = prediction.arraySync();
+    const prediction = (await this.#model.executeAsync(input)) as tf.Tensor;
+
+    const result = (await prediction.array()) as number[][];
 
     tf.dispose([input, prediction]);
 
-    console.log("result", result);
+    console.log(result[0]);
 
-    return Math.random() < 0.9 ? "human" : "bot";
+    const predictionValue = result[0]?.[0];
+
+    if (!predictionValue) {
+      throw new Error("No prediction value somehow");
+    }
+
+    return predictionValue;
   }
 }

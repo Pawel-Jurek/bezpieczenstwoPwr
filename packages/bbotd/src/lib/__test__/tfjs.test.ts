@@ -7,12 +7,14 @@ describe("@tensorflow/tfjs integration", () => {
   it("should load model from local manifest", async () => {
     const model = new Model(LOCAL_MODEL_URL);
 
-    await expect(model.load()).resolves.toBeDefined();
+    const m = (await model.load()) as tf.GraphModel;
+    expect(m).toBeDefined();
 
-    const dummyInput = tf.tensor2d([[1, 2, 3]]);
-    const result = model.predict(dummyInput);
+    const dummyInput = tf.randomNormal([1, 75, 4]);
 
-    expect(result).toMatch(/bot|human/);
+    const result = await m.executeAsync(dummyInput);
+
+    expect(result).toBeInstanceOf(tf.Tensor);
   });
 
   it("should handle missing model", async () => {

@@ -1,14 +1,6 @@
-import { Model } from "./lib/tfjs";
-import { Data } from "./utils/data";
+import { App } from "./app";
 
-// check if script is being run in the browser
-if (globalThis.window === undefined) {
-  throw new Error(
-    "Bot detection installed in non-browser environment. Disabling.",
-  );
-}
+const manifestUrl = "http://localhost:3000/models/tfjs_model/model.json";
+const app = new App(manifestUrl);
 
-const model = new Model("/models/model.json");
-model.load();
-
-new Data();
+app.init();
