@@ -43,7 +43,7 @@ export function Form() {
           ></input>
         </fieldset>
 
-        <button type="submit">Log In</button>
+        <button type="submit">Sign Up</button>
       </form>
       <p className="or-divider">Or</p>
       <div className="or-button-group">
