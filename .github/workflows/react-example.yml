@@ -5,7 +5,7 @@ on:
     branches: 
       - main
 
-permissinos:
+permissions:
   contents: write
 
 jobs:
