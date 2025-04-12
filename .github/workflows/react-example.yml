@@ -3,7 +3,7 @@ name: Deploy React example to GH Pages
 on:
   push:
     branches: 
-      - main
+      - master
 
 permissions:
   contents: write
