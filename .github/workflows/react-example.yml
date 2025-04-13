@@ -1,10 +1,12 @@
-name: Deploy React example to GH Pages
+name: Build and deploy React example
 
 on:
   push:
-    branches: 
+    branches:
       - master
-      - fix/deploy-actions
+    paths:
+      - "examples/react-ts/**"
+      - ".github/workflows/react-example.yml"
 
 permissions:
   contents: write
@@ -12,7 +14,7 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,4 +37,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./examples/react-ts/dist
-
+          destination_dir: react-ts
+          keep_files: true
