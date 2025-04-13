@@ -35,8 +35,7 @@ Until we implement a better method for serving test assets, you need to serve th
 npx serve public
 ```
 
-This makes files like `./public/models1/model.json` available at `http://llocalhost:3000/models/1/model.json`
-
+This makes files like `./public/models1/model.json` available at `http://localhost:3000/models/1/model.json`
 ### Run tests
 
 We use [vitest](https://vitest.dev/) as our test runner. It supports interactive features -- like pressing `r` to re-run all test suites during watch mode:
