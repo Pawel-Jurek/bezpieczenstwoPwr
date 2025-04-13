@@ -49,7 +49,7 @@ npm run test
 We use [Rollup](https://rollupjs.org/) to bundle the package for browsers. Output is build for modern ES6 environments, which ensures compatibility with:
 
 - ~97.7% of browsers globally
-- ~99.9% of browsers trached on [Can I Use](https://caniuse.com/?search=es6)
+- ~99.9% of browsers tracked on [Can I Use](https://caniuse.com/?search=es6)
 
 ```bash
 npm run build
