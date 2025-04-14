@@ -1,7 +1,6 @@
 # ML model
 
-## Installng packages
-
+## Installing packages
 [cuDNN 8.9]
 
 ## Building model
