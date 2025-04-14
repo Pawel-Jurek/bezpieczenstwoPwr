@@ -1,1 +1,0 @@
-import{_ as a,c as e,o as t}from"./chunks/framework.3AeSRRNn.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"pl/data-and-models.md","filePath":"pl/data-and-models.md"}'),d={name:"pl/data-and-models.md"};function o(s,n,r,c,l,p){return t(),e("div")}const i=a(d,[["render",o]]);export{_ as __pageData,i as default};
