@@ -1,10 +1,12 @@
-name: Deploy NPM Package
+name: Build and publish bbotd package
 
 on:
   push:
     branches:
       - master
-      - fix/deploy-actions
+    paths:
+      - "packages/bbotd/**"
+      - ".github/workflows/bbotd-package.yml"
 
 jobs:
   publish:
@@ -24,12 +26,12 @@ jobs:
         working-directory: ./packages/bbotd
         run: npm install
 
-      - name: Build package 
+      - name: Build package
         working-directory: ./packages/bbotd
         run: npm run build
 
       - name: Publish to NPM
         working-directory: ./packages/bbotd
-        run: npm publish --provenance --access public
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
