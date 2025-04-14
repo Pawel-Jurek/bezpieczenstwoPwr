@@ -1,28 +1,66 @@
 [project]
 name = "detecting-bots"
 version = "0.1.0"
-dependencies = [
-    ""
-]
-requires-python = ">= 3.9"
+description = ""
 authors = [
     {name = "Krystian Ogonowski", email = "krystian@ogonowski.it"},
     {name = "Łukasz Fijałkowski", email = "lukasz.fijalkowski@example.com"},
     {name = "Paweł Jurek", email = "pawel.jurek@example.com"},
 ]
-description = "TODO: "
 readme = "README.md"
-license = "MIT"
+requires-python = ">=3.9,<3.11"
+dependencies = [
+    "tensorflow (==2.15.0)",
+    "keras (==2.15.0)",
+    "scikit-learn (>=1.6.1,<2.0.0)",
+    "pandas (>=2.2.3,<3.0.0)",
+    "tensorflowjs (>=4.22.0,<5.0.0)"
+]
+license = ""
 keywords = ["bot", "detection"]
 
+
 [project.urls]
-Homepage = "https://example.com"
-Documentation = "https://example.com/docs"
-Repository = "https://example.com/git/repo"
-Issues = "https://github.com/me/spam/issues"
-Changelog = "https://example.com/me/spam/blob/master/CHANGELOG.md"
-
-[project.scripts]
-lint = "ruff ."
+Homepage = "https://pawel-jurek.github.io/bezpieczenstwoPwr/docs/"
+Documentation = "https://pawel-jurek.github.io/bezpieczenstwoPwr/docs/getting-started"
+Repository = "https://github.com/Pawel-Jurek/bezpieczenstwoPwr"
+Issues = "https://github.com/Pawel-Jurek/bezpieczenstwoPwr/issues"
+Changelog = "https://github.com/Pawel-Jurek/bezpieczenstwoPwr/blob/master/packages/model/CHANGELOG.md"
 
 
+[tool.poetry.scripts]
+mm = "model.mouse_move:main"
+
+
+[tool.poetry]
+packages = [{include = "model", from = "src"}]
+
+
+[tool.ruff]
+target-version = "py39"
+
+# Include all standard checks (or customize)
+lint.select = ["E", "F", "I", "UP", "C90", "N", "B"]
+lint.ignore = []
+line-length = 88
+exclude = ["build", "dist", ".venv"]
+fix = true
+
+
+[tool.ruff.format]
+quote-style = "double"
+
+
+[tool.taskipy.tasks]
+lint = "ruff check . --fix"
+format = "ruff format ."
+transform = "tensorflowjs_converter --input_format=keras --output_format=tfjs_graph_model ./out/tf_keras.h5 ./model/"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.5"
+taskipy = "^1.14.1"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
