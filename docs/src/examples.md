@@ -37,8 +37,7 @@ npm run dev
 
 The React example is also deployed via GitHub Pages:
 
-> [🔗 View Demo](https://githu.com/Pawel-Jurek/bezpieczenstwoPwr/)
-
+> [🔗 View Demo](https://github.com/Pawel-Jurek/bezpieczenstwoPwr/)
 <!-- ## 🧠 Behind the Scenes
 
 The example app leverages: -->
