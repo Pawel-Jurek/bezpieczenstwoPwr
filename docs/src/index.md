@@ -15,12 +15,15 @@ hero:
     - theme: alt
       text: Examples
       link: /examples
+    - theme: alt
+      text: Data and models
+      link: /data-and-models
 
 features:
   - title: Real-time bot detection
     details: Uses real-world data and machine learning to detect anomalous behavior directly in the browser.
-  - title: React + TypeScript examples
+  - title: Multiple examples
     details: Hands-on demo projects that show how to integrate the library into real applications.
   - title: Easy integration with minimal dependencies
-    details: Works through a simple tag with no backend setup required.
+    details: Plug and play with no backend setup required.
 ---

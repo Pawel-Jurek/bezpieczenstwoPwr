@@ -79,42 +79,87 @@ export default defineConfig({
     nav: [
       { text: "Home", link: "/" },
       { text: "Getting started", link: "/getting-started" },
-      { text: "Packages", link: "/packages" },
       { text: "Examples", link: "/examples" },
+      { text: "Models", link: "/data-and-models" },
+      { text: "Changelog", link: "/changelog" },
     ],
     sidebar: [
       {
         text: "Getting started",
+        link: "/getting-started",
         items: [
           {
-            text: "Installation and usage",
-            link: "/getting-started",
+            text: "Project structure",
+            link: "/getting-started#project-structure",
+          },
+          {
+            text: "Running locally",
+            link: "/getting-started#running-locally",
           },
         ],
       },
       {
         text: "Packages",
-        items: [{ text: "Packages", link: "/packages" }],
-      },
-      {
-        text: "Examples",
+        link: "/packages",
         items: [
           {
-            text: "Examples",
-            link: "/examples",
+            text: "bbotd",
+            link: "/packages#bbotd",
+          },
+          {
+            text: "ML model",
+            link: "/packages#ml-model",
           },
         ],
       },
       {
+        text: "Examples",
+        link: "/examples",
+        items: [
+          {
+            text: "Available examples",
+            link: "/examples#available-examples",
+          },
+          { text: "React + Typescript", link: "/examples#react-ts" },
+        ],
+      },
+      {
         text: "Data and models",
-        items: [{ text: "Data and models", link: "/data-and-models" }],
+        link: "/data-and-models",
+        items: [
+          {
+            text: "Data source",
+            link: "/data-and-models#data-source",
+          },
+          {
+            text: "Data processing",
+            link: "/data-and-models#data-processing",
+          },
+          {
+            text: "Model architecture",
+            link: "/data-and-models#model-architecture",
+          },
+          {
+            text: "Loading models",
+            link: "/data-and-models#loading-models",
+          },
+        ],
       },
       {
         text: "Changelog",
+        link: "/changelog",
         items: [
           {
-            text: "Changelog",
-            link: "/changelog",
+            text: "latest",
+            link: "/changelog#latest",
+          },
+          {
+            text: "dev",
+            link: "/changelog#dev",
+          },
+          {
+            text: "v0.1.2",
+            link: "/changelog#v0-1-2",
           },
         ],
       },

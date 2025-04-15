@@ -1,8 +1,8 @@
-# 📊 Data & Models
+# 📊 Data & Models {#data-and-models}
 
 This section covers how behavioral data is used to train machine learning models in **bezpieczenstwoPwr**, as well as how those models are integrated and run in the browser.
 
-## 📁 Data Source
+## 📁 Data Source {#data-source}
 
 The machine learning models are trained using anonymized user behavior data, primarily from:
 
@@ -18,7 +18,7 @@ Typical features include:
 
 > 🧠 All data is anonymized before any storage or model training. No personally identifiable information is collected.
 
-## 🛠 Data Preprocessing
+## 🛠 Data Preprocessing {#data-processing}
 
 Before feeding data into the model, we perform several preprocessing steps:
 
@@ -29,7 +29,7 @@ Before feeding data into the model, we perform several preprocessing steps:
 
 You can find preprocessing code inside the training pipeline scripts (not yet published, ask us if you want early access).
 
-## 🧠 Model Architecture
+## 🧠 Model Architecture {#model-architecture}
 
 Models are designed for lightweight, in-browser inference using [TensorFlow.js](https://www.tensorflow.org/js/).
 
@@ -43,12 +43,6 @@ The final model is selected based on size, accuracy, and inference speed in the 
 
 > ⚠️ Models are kept under `public/models/` for now. Expect a proper versioning system and CDN-hosted models in future updates.
 
-## 📦 Loading Models
+## 📦 Loading Models {#loading-models}
 
-The `bbotd` package automatically loads a model from a given URL:
-
-```js
-bbotd.loadModel("https://yourdomain.com/models/1/model.json").then((model) => {
-  const prediction = model.predict(userData);
-});
-```
+The `bbotd` package automatically loads a model from a given URL.

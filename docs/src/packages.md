@@ -2,20 +2,18 @@
 
 This monorepo contains reusable packages located under the `packages/` directory. Each package is structured to be independently built, tested, and (when applicable) published to npm.
 
-## Available Packages
-
-### [`bbotd`](https://www.npmjs.com/package/bbotd)
+## [`bbotd`](https://www.npmjs.com/package/bbotd) {#bbotd}
 
 A browser-first anomaly detection library designed to identify bot-like behavior on websites using real-time data and lightweight machine learning models.
 
-#### ✨ Features
+### ✨ Features {#features}
 
 - Works directly in the browser
 - Detects suspicious user behavior using pre-trained ML models
 - Built with modern ES6 standards
 - Lightweight and dependency-friendly
 
-#### 🚀 Quick Start
+### 🚀 Quick Start {#quick-start}
 
 Add the following to your HTML page:
 
@@ -26,3 +24,5 @@ Add the following to your HTML page:
 <!-- existing code -->
 </body>
 ```
+
+## [`ML model`](TODO:) {#ml-model}
