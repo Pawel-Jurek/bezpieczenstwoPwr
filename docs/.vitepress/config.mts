@@ -8,6 +8,10 @@ export default defineConfig({
   srcDir: "src",
   cleanUrls: true,
   base: "/bezpieczenstwoPwr/docs/",
+  ignoreDeadLinks: [
+    // ignore all localhost links
+    /^http:\/\/localhost/,
+  ],
   locales: {
     root: {
       label: "English",
