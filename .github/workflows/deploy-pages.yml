@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - fix/bbotd-npm-cicd-changes-scope
     paths:
       - "docs/**"
       - "examples/react-ts/**"
