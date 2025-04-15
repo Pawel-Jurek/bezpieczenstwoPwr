@@ -1,4 +1,4 @@
-# 🧪 Example Projects
+# 🧪 Example Projects {#example-projects}
 
 The `examples/` directory in **bezpieczenstwoPwr** contains demo applications that show how to use the core packages (like `bbotd`) in real-world scenarios.
 
@@ -8,7 +8,7 @@ These examples are especially useful if you're:
 - Looking for integration patterns with frontend frameworks
 - Exploring different use cases (e.g., real-time detection, model evaluation)
 
-## 📁 Available Examples
+**Available Examples** {#available-examples}
 
 ```bash
 examples/
@@ -16,7 +16,7 @@ examples/
 └── ... # More coming soon!
 ```
 
-### react-ts/ (React + TypeScript)
+## React + TypeScript {#react-ts}
 
 This is the main example that showcases how to:
 
@@ -25,7 +25,7 @@ This is the main example that showcases how to:
 - Load a TensorFlow.js model and make predictions
 - Display prediction results (normal vs. bot-like behavior)
 
-#### 🚀 Run the Example
+### 🚀 Run the Example {#run-the-example}
 
 ```bash
 cd examples/react-ts
@@ -33,11 +33,12 @@ npm install
 npm run dev
 ```
 
-#### 🌐 Live Demo
+### 🌐 Live Demo {#live-demo}
 
 The React example is also deployed via GitHub Pages:
 
-> [🔗 View Demo](https://github.com/Pawel-Jurek/bezpieczenstwoPwr/)
+> [🔗 View Demo](https://pawel-jurek.github.io/bezpieczenstwoPwr/react-ts/)
+
 <!-- ## 🧠 Behind the Scenes
 
 The example app leverages: -->

@@ -1,4 +1,5 @@
 node_modules/
-.vitepress/
+.vitepress/cache/
+.vitepress/dist/
 !.vitepress/theme/
 !.vitepress/config.mts

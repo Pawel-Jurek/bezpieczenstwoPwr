@@ -1,0 +1,59 @@
+name: Build and deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+      - fix/bbotd-npm-cicd-changes-scope
+    paths:
+      - "docs/**"
+      - "examples/react-ts/**"
+      - ".github/workflows/deploy-pages.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install docs deps
+        working-directory: ./docs
+        run: npm install
+
+      - name: Build docs
+        working-directory: ./docs
+        run: npm run docs:build
+
+      - name: Install react deps
+        working-directory: ./examples/react-ts
+        run: npm install
+
+      - name: Build react example
+        working-directory: ./examples/react-ts
+        run: npm run build
+
+      - name: Create combined publish directory
+        run: |
+          mkdir -p gh-pages/docs
+          mkdir -p gh-pages/react-ts
+          cp -r docs/.vitepress/dist/* gh-pages/docs/
+          cp -r examples/react-ts/dist/* gh-pages/react-ts/
+      - name: Add index.html redirect to /docs/
+        run: |
+          echo '<meta http-equiv="refresh" content="0; url=docs/">' > gh-pages/index.html
+
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: gh-pages
