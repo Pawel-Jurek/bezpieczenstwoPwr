@@ -61,8 +61,7 @@ def train_mouse_model_tf():
     model.save(f"out/mouse_model_dropout.h5")
 
     print(f"\n🔍 Model: TensorFlow (Dropout)")
-    print(classification_report(y_test, y_pred, digits=3))
-
-    return classification_report(y_test, y_pred, digits=3)
-
+    report = classification_report(y_test, y_pred, digits=3)
+    print(report)
+    return report
 train_mouse_model_tf()
