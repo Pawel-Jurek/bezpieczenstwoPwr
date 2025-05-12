@@ -1,7 +1,6 @@
 .mypy_cache/
 .ruff_cache/
 .venv/
-data/
-out/
+mouse_data_combined.csv
 
 !model/
