@@ -35,13 +35,14 @@ tensorflow-cpu = [
     { version = "^2.13.0", platform = "linux", markers = "platform_machine!='arm64' and platform_machine!='aarch64'" },
     { version = "^2.13.0", platform = "darwin", markers = "platform_machine!='arm64' and platform_machine!='aarch64'" },]
 tensorflow-cpu-aws = { version = "^2.13.0", platform = "linux", markers = "platform_machine=='arm64' or platform_machine=='aarch64'" }
+matplotlib = "3.9.4"
 
 [tool.poetry.scripts]
-mm = "model.mouse_move:main"
-
+mm = "mouse_move_tf:main"
+km = "keyboard.model:main"
 
 [tool.poetry]
-packages = [{include = "model", from = "src"}]
+packages=[{include="keyboard", from="src"}]
 
 
 [tool.ruff]
@@ -62,8 +63,7 @@ quote-style = "double"
 [tool.taskipy.tasks]
 lint = "ruff check . --fix"
 format = "ruff format ."
-transform = "tensorflowjs_converter --input_format=keras --output_format=tfjs_graph_model ./out/tf_keras.h5 ./model/"
-
+transform = "tensorflowjs_converter --input_format=keras --output_format=tfjs_graph_model ./out/mouse_model_dropout.h5 ./model/mouse/"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.11.5"

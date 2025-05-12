@@ -16,5 +16,7 @@ mkdir -p "$TARGET_DIR"
 
 echo "Rozpakowywanie $ARCHIVE do $TARGET_DIR..."
 tar -xzvf "$ARCHIVE" -C "$TARGET_DIR"
+echo "Rozpakowywanie $ARCHIVE_K do $TARGET_DIR..."
+tar -xzvf "$ARCHIVE_K" -C "$TARGET_DIR"
 
 echo "Gotowe!"
