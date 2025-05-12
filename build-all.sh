@@ -11,13 +11,17 @@ fi
 poetry run mm 
 poetry run km
 
-echo "=== [2] Move model files to bbotd ==="
-cd ../..
-rm -rf packages/bbotd/out/
-mkdir -p packages/bbotd/out/
-cp -r packages/model/out/* packages/bbotd/models/
+echo "=== [2] Compile to .json models ==="
+poetry run task transform_m 
+poetry run task transform_k
 
-echo "=== [3] Build bbotd package ==="
+echo "=== [3] Move model files to bbotd ==="
+cd ../..
+rm -rf packages/bbotd/models/
+mkdir -p packages/bbotd/models/
+mv packages/model/models/ packages/bbotd/models/
+
+echo "=== [4] Build bbotd package ==="
 cd packages/bbotd
 npm install 
 npm run build
