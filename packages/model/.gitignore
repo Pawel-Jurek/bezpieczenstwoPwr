@@ -4,3 +4,6 @@
 mouse_data_combined.csv
 
 !model/
+
+*.ps1
+.idea/

@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = [
     {name = "Krystian Ogonowski", email = "krystian@ogonowski.it"},
-    {name = "Łukasz Fijałkowski", email = "lukasz.fijalkowski@example.com"},
+    {name = "Łukasz Fijałkowski", email = "lukasz.fijalkowski2001@gmail.com"},
     {name = "Paweł Jurek", email = "pawel80121@gmail.com"},
 ]
 readme = "README.md"
@@ -37,7 +37,7 @@ tensorflow-cpu = [
 tensorflow-cpu-aws = { version = "^2.13.0", platform = "linux", markers = "platform_machine=='arm64' or platform_machine=='aarch64'" }
 
 [tool.poetry.scripts]
-mm = "mouse_move_tf:main"
+mm = "model.mouse_move:main"
 
 
 [tool.poetry]
@@ -62,7 +62,7 @@ quote-style = "double"
 [tool.taskipy.tasks]
 lint = "ruff check . --fix"
 format = "ruff format ."
-transform = "tensorflowjs_converter --input_format=keras --output_format=tfjs_graph_model ./out/mouse_model_dropout.h5 ./model/mouse/"
+transform = "tensorflowjs_converter --input_format=keras --output_format=tfjs_graph_model ./out/tf_keras.h5 ./model/"
 
 
 [tool.poetry.group.dev.dependencies]
