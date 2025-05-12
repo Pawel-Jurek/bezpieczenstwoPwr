@@ -9,6 +9,7 @@ export default {
   input: "src/index.ts",
   output: {
     file: "dist/index.js",
+    sourcemap: true,
     format: "umd",
     name: "bbotd",
     globals: {
@@ -39,8 +40,8 @@ export default {
     copy({
       targets: [
         {
-          src: "public/models/**/*",
-          dest: "dist/models",
+          src: "models/",
+          dest: "dist/models/",
         },
       ],
     }),
