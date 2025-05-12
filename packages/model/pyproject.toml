@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = [
     {name = "Krystian Ogonowski", email = "krystian@ogonowski.it"},
-    {name = "Łukasz Fijałkowski", email = "lukasz.fijalkowski@example.com"},
+    {name = "Łukasz Fijałkowski", email = "lukasz.fijalkowski2001@gmail.com"},
     {name = "Paweł Jurek", email = "pawel80121@gmail.com"},
 ]
 readme = "README.md"
@@ -35,14 +35,14 @@ tensorflow-cpu = [
     { version = "^2.13.0", platform = "linux", markers = "platform_machine!='arm64' and platform_machine!='aarch64'" },
     { version = "^2.13.0", platform = "darwin", markers = "platform_machine!='arm64' and platform_machine!='aarch64'" },]
 tensorflow-cpu-aws = { version = "^2.13.0", platform = "linux", markers = "platform_machine=='arm64' or platform_machine=='aarch64'" }
+matplotlib = "3.9.4"
 
 [tool.poetry.scripts]
 mm = "mouse_move_tf:main"
-
+km = "keyboard.model:main"
 
 [tool.poetry]
-packages = [{include = "model", from = "src"}]
-
+packages=[{include="keyboard", from="src"}]
 
 [tool.ruff]
 target-version = "py39"
