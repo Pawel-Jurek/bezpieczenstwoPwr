@@ -1,7 +1,6 @@
 .mypy_cache/
 .ruff_cache/
 .venv/
-mouse_data_combined.csv
 
 models/
 out/
@@ -11,6 +10,5 @@ out/
 
 data/m4d
 
+mouse_data_combined.csv
 combined_keyboard.csv
-combined_train_with_bots.csv
-train.csv
