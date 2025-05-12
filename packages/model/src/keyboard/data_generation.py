@@ -46,6 +46,18 @@ for i, mode in enumerate(bot_modes):
 
 bot_data = pd.concat(bot_dfs, ignore_index=True)
 combined_df = pd.concat([df, bot_data], ignore_index=True)
-combined_df.to_csv("combined_train_with_bots.csv", index=False)
+# Dodanie etykiety: 0 = człowiek, 1 = bot
+combined_df["is_bot"] = combined_df["user"].apply(lambda x: 1 if x >= 200 else 0)
+
+# Tworzenie cech
+df_features = pd.DataFrame()
+df_features["is_bot"] = combined_df["is_bot"]
+
+for i in range(13):
+    df_features[f"hold_time_{i}"] = combined_df[f"release-{i}"] - combined_df[f"press-{i}"]
+    if i > 0:
+        df_features[f"press_diff_{i}"] = combined_df[f"press-{i}"] - combined_df[f"press-{i - 1}"]
+        df_features[f"release_diff_{i}"] = combined_df[f"release-{i}"] - combined_df[f"release-{i - 1}"]
+df_features.to_csv("data/combined_keyboard.csv", index=False)
 
 print("Zapisano plik: combined_train_with_bots.csv")

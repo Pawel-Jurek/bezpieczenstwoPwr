@@ -35,6 +35,7 @@ tensorflow-cpu = [
     { version = "^2.13.0", platform = "linux", markers = "platform_machine!='arm64' and platform_machine!='aarch64'" },
     { version = "^2.13.0", platform = "darwin", markers = "platform_machine!='arm64' and platform_machine!='aarch64'" },]
 tensorflow-cpu-aws = { version = "^2.13.0", platform = "linux", markers = "platform_machine=='arm64' or platform_machine=='aarch64'" }
+matplotlib = "3.9.4"
 
 [tool.poetry.scripts]
 mm = "mouse_move_tf:main"

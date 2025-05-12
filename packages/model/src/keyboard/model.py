@@ -5,27 +5,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
-# Wczytanie rozszerzonego zbioru danych
-def model():
-
-    df = pd.read_csv("../../data/combined_train_with_bots.csv")
-
-    # Dodanie etykiety: 0 = człowiek, 1 = bot
-    df["is_bot"] = df["user"].apply(lambda x: 1 if x >= 200 else 0)
-
-    # Tworzenie cech
-    df_features = pd.DataFrame()
-    df_features["is_bot"] = df["is_bot"]
-
-    for i in range(13):
-        df_features[f"hold_time_{i}"] = df[f"release-{i}"] - df[f"press-{i}"]
-        if i > 0:
-            df_features[f"press_diff_{i}"] = df[f"press-{i}"] - df[f"press-{i-1}"]
-            df_features[f"release_diff_{i}"] = df[f"release-{i}"] - df[f"release-{i-1}"]
-
+def prepare_keyboard_model():
+    df = pd.read_csv("data/combined_keyboard.csv")
     # Przygotowanie danych do trenowania
-    X = df_features.drop(columns=["is_bot"])
-    y = df_features["is_bot"]
+    X = df.drop(columns=["is_bot"])
+    y = df["is_bot"]
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42, stratify=y
@@ -57,12 +41,11 @@ def model():
         X_train_norm, y_train, epochs=150, batch_size=32,
         validation_data=(X_test_norm, y_test), verbose=1
     )
+    model.save(f"out/keyboard_model_dropout.h5")
     return history
-def keyboard():
-    history = model()
-    # Ocena
-    test_loss, test_acc = model.evaluate(X_test_norm, y_test)
-    print(f"Accuracy on test set: {test_acc:.4f}")
+
+def charts():
+    history = prepare_keyboard_model()
 
     # Wykresy
     plt.figure(figsize=(12, 5))
@@ -84,5 +67,6 @@ def keyboard():
     plt.legend()
 
     plt.show()
+
 def main():
-    keyboard()
+    prepare_keyboard_model()
