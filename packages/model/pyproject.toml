@@ -9,13 +9,6 @@ authors = [
 ]
 readme = "README.md"
 requires-python = ">=3.9,<3.11"
-dependencies = [
-    "tensorflow (==2.15.0)",
-    "keras (==2.15.0)",
-    "scikit-learn (>=1.6.1,<2.0.0)",
-    "pandas (>=2.2.3,<3.0.0)",
-    "tensorflowjs (>=4.22.0,<5.0.0)"
-]
 license = ""
 keywords = ["bot", "detection"]
 
@@ -27,6 +20,21 @@ Repository = "https://github.com/Pawel-Jurek/bezpieczenstwoPwr"
 Issues = "https://github.com/Pawel-Jurek/bezpieczenstwoPwr/issues"
 Changelog = "https://github.com/Pawel-Jurek/bezpieczenstwoPwr/blob/master/packages/model/CHANGELOG.md"
 
+[tool.poetry.dependencies]
+keras = { version = "==2.15.0"}
+scikit-learn = {version = ">=1.6.1,<2.0.0"}
+pandas = {version = ">=2.2.3,<3.0.0"}
+tensorflowjs = {version = ">=4.22.0,<5.0.0"}
+tensorflow = {version = "^2.13.0" }
+tensorflow-intel = { version = "2.15.0", platform = "win32" }
+tensorflow-io-gcs-filesystem = [
+    { version = ">= 0.23.1", markers = "platform_machine!='arm64' or platform_system!='Darwin'" },
+    { version = "< 0.32.0", markers = "platform_system == 'Windows'" }
+]
+tensorflow-cpu = [
+    { version = "^2.13.0", platform = "linux", markers = "platform_machine!='arm64' and platform_machine!='aarch64'" },
+    { version = "^2.13.0", platform = "darwin", markers = "platform_machine!='arm64' and platform_machine!='aarch64'" },]
+tensorflow-cpu-aws = { version = "^2.13.0", platform = "linux", markers = "platform_machine=='arm64' or platform_machine=='aarch64'" }
 
 [tool.poetry.scripts]
 mm = "model.mouse_move:main"
