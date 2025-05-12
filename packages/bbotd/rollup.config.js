@@ -40,8 +40,8 @@ export default {
     copy({
       targets: [
         {
-          src: "models/",
-          dest: "dist/models/",
+          src: "models/*",
+          dest: "dist",
         },
       ],
     }),
