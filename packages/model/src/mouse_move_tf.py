@@ -1,15 +1,15 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import classification_report
 from tensorflow.keras import models, layers
 
 
 def engineer_features(_df):
     agg_funcs = {
-        'behaviour_x': ['min', 'max'],
-        'behaviour_y': ['min', 'max'],
+        #'behaviour_x': ['min', 'max'],
+        #'behaviour_y': ['min', 'max'],
         'time_diff': ['mean', 'std', 'sum', 'max'],
         'x_diff': ['mean', 'std', 'sum'],
         'y_diff': ['mean', 'std', 'sum'],
@@ -43,7 +43,7 @@ def train_mouse_model_tf():
     X = final_df.drop(['session_id', 'bot'], axis=1)
     y = final_df['bot'].astype(np.float32)
 
-    scaler = StandardScaler()
+    scaler = MinMaxScaler()
     X_scaled = scaler.fit_transform(X)
 
     X_train, X_test, y_train, y_test = train_test_split(
@@ -51,7 +51,7 @@ def train_mouse_model_tf():
     )
 
     model = get_model(input_shape=X_train.shape[1])
-    model.fit(X_train, y_train, epochs=20, batch_size=32, validation_split=0.1, verbose=1)
+    model.fit(X_train, y_train, epochs=50, batch_size=32, validation_split=0.1, verbose=1)
 
     y_pred_probs = model.predict(X_test).flatten()
     y_pred = (y_pred_probs > 0.5).astype(int)

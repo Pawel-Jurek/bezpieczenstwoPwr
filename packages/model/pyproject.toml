@@ -44,6 +44,7 @@ km = "keyboard.model:main"
 [tool.poetry]
 packages=[{include="keyboard", from="src"}]
 
+
 [tool.ruff]
 target-version = "py39"
 
@@ -63,7 +64,6 @@ quote-style = "double"
 lint = "ruff check . --fix"
 format = "ruff format ."
 transform = "tensorflowjs_converter --input_format=keras --output_format=tfjs_graph_model ./out/mouse_model_dropout.h5 ./model/mouse/"
-
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.11.5"
