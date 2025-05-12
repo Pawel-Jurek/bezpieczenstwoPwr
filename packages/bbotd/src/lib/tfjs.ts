@@ -3,7 +3,7 @@ import * as tf from "@tensorflow/tfjs";
 export class Model {
   #model: tf.GraphModel | undefined;
 
-  constructor(private readonly manifestUrl: string) {
+  constructor(private readonly manifestName: "mouse" | "keyboard") {
     // FIXME: my browser couldn't load webgl, ideally we'd want to use webgl and fallback to 'cpu'
     tf.setBackend("cpu");
   }
@@ -16,7 +16,8 @@ export class Model {
       return this.#model;
     }
 
-    this.#model = await tf.loadGraphModel(this.manifestUrl);
+    const modelUrl = `/models/${this.manifestName}/model.json`;
+    this.#model = await tf.loadGraphModel(modelUrl);
 
     return this.#model;
   }
@@ -35,9 +36,9 @@ export class Model {
 
     const result = (await prediction.array()) as number[][];
 
-    tf.dispose([input, prediction]);
+    console.log("flat", result.flat(2));
 
-    console.log(result[0]);
+    tf.dispose([input, prediction]);
 
     const predictionValue = result[0]?.[0];
 

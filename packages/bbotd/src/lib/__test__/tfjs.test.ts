@@ -2,10 +2,10 @@ import { Model } from "../../lib/tfjs";
 import * as tf from "@tensorflow/tfjs";
 
 describe("@tensorflow/tfjs integration", () => {
-  const LOCAL_MODEL_URL = "http://localhost:3000/models/tfjs_model/model.json";
+  const LOCAL_MODEL_NAME = "mouse";
 
-  it("should load model from local manifest", async () => {
-    const model = new Model(LOCAL_MODEL_URL);
+  it("should load mouse model from local manifest", async () => {
+    const model = new Model(LOCAL_MODEL_NAME);
 
     const m = (await model.load()) as tf.GraphModel;
     expect(m).toBeDefined();
@@ -18,7 +18,7 @@ describe("@tensorflow/tfjs integration", () => {
   });
 
   it("should handle missing model", async () => {
-    const model = new Model("http://localhost:3000/missing/model.json");
+    const model = new Model(LOCAL_MODEL_NAME);
     await expect(model.load()).rejects.toThrow();
   });
 });

@@ -5,13 +5,21 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>bbotd - React + TypeScript example</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4/dist/tf.min.js"></script>
+
+    <script type="module">
+      const isProd = import.meta.env.MODE ?? "production";
+      console.log("is prod", isProd);
+
+      if (isProd === "production") {
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/bbotd/dist/index.min.js";
+        document.head.appendChild(script);
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bbotd/dist/index.min.js"></script>
-
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

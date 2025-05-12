@@ -24,9 +24,9 @@ poetry run task transform_k
 
 cyan "=== [3] Move model files to bbotd ==="
 cd ../..
-rm -rf packages/bbotd/models/
-mkdir -p packages/bbotd/models/
-mv packages/model/models/ packages/bbotd/models/
+rm -rf packages/bbotd/public/models/
+mkdir -p packages/bbotd/public/models/
+mv packages/model/models/ packages/bbotd/public/
 
 cyan "=== [4] Build bbotd package ==="
 cd packages/bbotd
