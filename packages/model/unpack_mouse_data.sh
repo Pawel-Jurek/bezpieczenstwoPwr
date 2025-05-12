@@ -20,3 +20,4 @@ echo "Rozpakowywanie $ARCHIVE_K do $TARGET_DIR..."
 tar -xzvf "$ARCHIVE_K" -C "$TARGET_DIR"
 
 echo "Gotowe!"
+

@@ -7,3 +7,9 @@ mouse_data_combined.csv
 
 *.ps1
 .idea/
+
+data/m4d
+
+combined_keyboard.csv
+combined_train_with_bots.csv
+train.csv
