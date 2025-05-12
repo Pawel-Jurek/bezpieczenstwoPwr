@@ -132,6 +132,8 @@ export class Data {
       sum(yDiffs),
     ];
 
+    console.log("(mouse) features", features);
+
     const tensor = tf.tensor2d([features], [1, 14]);
 
     return tensor;

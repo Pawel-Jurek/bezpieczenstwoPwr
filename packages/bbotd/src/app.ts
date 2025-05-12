@@ -10,8 +10,6 @@ const processMouseData = async (data: Data, model: Model) => {
   try {
     const len = data.length();
 
-    console.log("length", len);
-
     if (len < 5) return;
 
     const tensor = data.toTensor();
@@ -33,11 +31,8 @@ const processMouseData = async (data: Data, model: Model) => {
 };
 
 const processKeyboardData = async (data: KeyboardData, model: Model) => {
-  console.log("call keyboard process");
   try {
     const len = data.length();
-
-    console.log("k len", len);
 
     if (len < 26) return;
 
