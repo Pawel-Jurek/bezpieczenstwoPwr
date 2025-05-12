@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
 # Wczytanie rozszerzonego zbioru danych
-df = pd.read_csv("combined_train_with_bots.csv")
+df = pd.read_csv("data/combined_train_with_bots.csv")
 
 # Dodanie etykiety: 0 = człowiek, 1 = bot
 df["is_bot"] = df["user"].apply(lambda x: 1 if x >= 200 else 0)

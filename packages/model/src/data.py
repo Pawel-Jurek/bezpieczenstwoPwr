@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv("train.csv")
+df = pd.read_csv("../data/train.csv")
 
 total_human_samples = df.shape[0]
 samples_per_bot = total_human_samples // 5

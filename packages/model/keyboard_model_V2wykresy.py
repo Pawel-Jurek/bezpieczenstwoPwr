@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("combined_train_with_bots.csv")
+df = pd.read_csv("data/combined_train_with_bots.csv")
 
 #1 = bot, 0 = człowiek
 df["is_bot"] = df["user"].apply(lambda x: 1 if x >= 200 else 0)
