@@ -1,6 +1,13 @@
 #!/bin/bash
 
-echo "=== [1] Build TensorFlow models ==="
+CYAN='\033[0;36m'
+NC='\033[0m' # no color
+
+cyan () {
+  echo -e "${CYAN}${1}${NC}"
+}
+
+cyan "=== [1] Build TensorFlow models ==="
 cd packages/model
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -11,17 +18,17 @@ fi
 poetry run mm 
 poetry run km
 
-echo "=== [2] Compile to .json models ==="
+cyan "=== [2] Compile to .json models ==="
 poetry run task transform_m 
 poetry run task transform_k
 
-echo "=== [3] Move model files to bbotd ==="
+cyan "=== [3] Move model files to bbotd ==="
 cd ../..
 rm -rf packages/bbotd/models/
 mkdir -p packages/bbotd/models/
 mv packages/model/models/ packages/bbotd/models/
 
-echo "=== [4] Build bbotd package ==="
+cyan "=== [4] Build bbotd package ==="
 cd packages/bbotd
 npm install 
 npm run build
