@@ -40,7 +40,12 @@ const processKeyboardData = async (data: KeyboardData, model: Model) => {
 
     const result = await model.predict(tensor);
 
-    console.log("(keyboard) Prediction: ", result > 0.5 ? "bot" : "human");
+    console.log(
+      "(keyboard) Prediction: ",
+      result > 0.5 ? "bot" : "human",
+      " | ",
+      result,
+    );
     data.clear();
   } catch (error) {
     console.error("prediction error: ", error);

@@ -30,6 +30,16 @@ function isMouseEvent(e: Event): e is MouseEvent {
   return ALLOWED_EVENT_TYPES.includes(e.type);
 }
 
+function minMaxScaler(arr: number[], value: number): number {
+  const max = (arr: number[]) => Math.max(...arr);
+  const min = (arr: number[]) => Math.min(...arr);
+
+  const _min = min(arr);
+  const _max = max(arr);
+
+  return (value - _min) / (_max - _min);
+}
+
 export class Data {
   #isButtonDown: boolean = false;
 
@@ -105,36 +115,37 @@ export class Data {
     const xDiffs = xs.slice(1).map((x, i) => x - xs[i]!);
     const yDiffs = ys.slice(1).map((y, i) => y - ys[i]!);
 
+    // X - Xmin / Xmax - Xmin
+
     const mean = (arr: number[]) => arr.reduce((a, b) => a + b, 0) / arr.length;
     const std = (arr: number[], avg = mean(arr)) =>
       Math.sqrt(mean(arr.map((x) => (x - avg) ** 2)));
     const sum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
     const max = (arr: number[]) => Math.max(...arr);
-    const min = (arr: number[]) => Math.min(...arr);
+    // const min = (arr: number[]) => Math.min(...arr);
 
     const features = [
-      min(xs),
-      max(xs),
-      min(ys),
-      max(ys),
+      // min(xs),
+      // max(xs),
+      // min(ys),
+      // max(ys),
+      minMaxScaler(timeDiffs, mean(timeDiffs)),
+      minMaxScaler(timeDiffs, std(timeDiffs)),
+      minMaxScaler(timeDiffs, sum(timeDiffs)),
+      minMaxScaler(timeDiffs, max(timeDiffs)),
 
-      mean(timeDiffs),
-      std(timeDiffs),
-      sum(timeDiffs),
-      max(timeDiffs),
+      minMaxScaler(xDiffs, mean(xDiffs)),
+      minMaxScaler(xDiffs, std(xDiffs)),
+      minMaxScaler(xDiffs, sum(xDiffs)),
 
-      mean(xDiffs),
-      std(xDiffs),
-      sum(xDiffs),
-
-      mean(yDiffs),
-      std(yDiffs),
-      sum(yDiffs),
+      minMaxScaler(yDiffs, mean(yDiffs)),
+      minMaxScaler(yDiffs, std(yDiffs)),
+      minMaxScaler(yDiffs, sum(yDiffs)),
     ];
 
     console.log("(mouse) features", features);
 
-    const tensor = tf.tensor2d([features], [1, 14]);
+    const tensor = tf.tensor2d([features], [1, features.length]);
 
     return tensor;
   }
