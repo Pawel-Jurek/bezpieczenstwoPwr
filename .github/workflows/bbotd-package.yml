@@ -7,6 +7,12 @@ on:
     paths:
       - "packages/bbotd/**"
       - ".github/workflows/bbotd-package.yml"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "packages/bbotd/**"
+      - ".github/workflows/bbotd-package.yml"
 
 jobs:
   publish:
@@ -31,6 +37,7 @@ jobs:
         run: npm run build
 
       - name: Publish to NPM
+        # if: github.event_name == 'push'
         working-directory: ./packages/bbotd
         run: npm publish --access public
         env:
