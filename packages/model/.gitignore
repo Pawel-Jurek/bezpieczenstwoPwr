@@ -1,9 +1,14 @@
 .mypy_cache/
 .ruff_cache/
 .venv/
-mouse_data_combined.csv
 
-!model/
+models/
+out/
 
 *.ps1
 .idea/
+
+data/m4d
+
+mouse_data_combined.csv
+combined_keyboard.csv

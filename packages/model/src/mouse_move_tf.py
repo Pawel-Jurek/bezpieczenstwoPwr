@@ -53,13 +53,14 @@ def train_mouse_model_tf():
     model = get_model(input_shape=X_train.shape[1])
     model.fit(X_train, y_train, epochs=50, batch_size=32, validation_split=0.1, verbose=1)
 
-    y_pred_probs = model.predict(X_test).flatten()
-    y_pred = (y_pred_probs > 0.5).astype(int)
-
     model.save(f"out/mouse_model_dropout.h5")
 
-    report = classification_report(y_test, y_pred, digits=3)
-    return report
+    # y_pred_probs = model.predict(X_test).flatten()
+    # y_pred = (y_pred_probs > 0.5).astype(int)
+
+
+    # report = classification_report(y_test, y_pred, digits=3)
+    # return report
 
 def main():
     train_mouse_model_tf()

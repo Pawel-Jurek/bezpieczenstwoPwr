@@ -1,61 +1,126 @@
 import { Model } from "./lib/tfjs";
 import { Data } from "./utils/data";
+import { KeyboardData } from "./utils/keyboardData";
+
+import { throttleDebounce } from "./utils/debounce";
+
+const processMouseData = async (data: Data, model: Model) => {
+  console.log("call mouse process");
+
+  try {
+    const len = data.length();
+
+    if (len < 5) return;
+
+    const tensor = data.toTensor();
+
+    const result = await model.predict(tensor);
+
+    console.log(
+      "(mouse) Prediction:",
+      result > 0.5 ? "bot" : "human",
+      " | ",
+      result,
+    );
+
+    // Clear queue after processing to avoid duplicate predictions
+    data.clear();
+  } catch (error) {
+    console.error("Prediction error: ", error);
+  }
+};
+
+const processKeyboardData = async (data: KeyboardData, model: Model) => {
+  try {
+    const len = data.length();
+
+    if (len < 26) return;
+
+    const tensor = data.toTensor();
+
+    const result = await model.predict(tensor);
+
+    console.log(
+      "(keyboard) Prediction: ",
+      result > 0.5 ? "bot" : "human",
+      " | ",
+      result,
+    );
+    data.clear();
+  } catch (error) {
+    console.error("prediction error: ", error);
+  }
+};
 
 export class App {
-  private model: Model;
-  private data: Data;
+  private mouseModel: Model;
+  private keyboardModel: Model;
+  private mouseData: Data;
+  private keyboardData: KeyboardData;
 
-  private isProcessing: boolean = false;
+  // private isProcessing: boolean = false;
 
-  constructor(
-    manifestUrl: string,
-    private readonly target: EventTarget = window,
-  ) {
-    this.model = new Model(manifestUrl);
-    this.data = new Data(target);
+  constructor(private readonly target: EventTarget = window) {
+    this.mouseModel = new Model("mouse");
+    this.keyboardModel = new Model("keyboard");
+    this.mouseData = new Data(this.target);
+    this.keyboardData = new KeyboardData(this.target);
   }
 
   async init() {
-    console.log("Loading model...");
-    await this.model.load();
-    console.log("Model loaded successfully");
+    console.log("Loading mouse model...");
+    await this.mouseModel.load();
+    console.log("mouse model loaded successfully");
+
+    console.log("Loading keyboard model...");
+    await this.keyboardModel.load();
+    console.log("keyboard model loaded successfully");
+
     this.startTracking();
   }
 
   startTracking() {
-    this.data.addListeners();
-    setInterval(() => this.processData(), 2000);
+    const fn = throttleDebounce(processMouseData);
+    this.mouseData.addListeners(() => {
+      fn(this.mouseData, this.mouseModel);
+    });
+
+    const fn2 = throttleDebounce(processKeyboardData);
+
+    this.keyboardData.addListeners(() => {
+      fn2(this.keyboardData, this.keyboardModel);
+    });
   }
 
-  async processData() {
-    if (this.isProcessing) return;
-    this.isProcessing = true;
-
-    try {
-      const tensor = this.data.toTensor();
-
-      if (tensor.shape[1] !== 75) {
-        this.isProcessing = false;
-        return;
-      }
-
-      const result = await this.model.predict(tensor);
-      console.log(
-        "Prediction:",
-        result > 0.5 ? "bot" : "human",
-        `${(result * 100.0).toFixed(2)}%`,
-      );
-
-      // Clear queue after processing to avoid duplicate predictions
-      this.data.clear();
-    } catch (error) {
-      console.error("Prediction error:", error);
-    } finally {
-      this.isProcessing = false;
-    }
-  }
+  // async processData() {
+  //   if (this.isProcessing) return;
+  //
+  //   try {
+  //     const len = this.data.length();
+  //     if (len < 100) return;
+  //
+  //     this.isProcessing = true;
+  //     const tensor = this.data.toTensor();
+  //
+  //     const result = await this.model.predict(tensor);
+  //
+  //     console.log(
+  //       "Prediction:",
+  //       result > 0.5 ? "bot" : "human",
+  //       `${(result * 100.0).toFixed(2)}%`,
+  //     );
+  //
+  //     // Clear queue after processing to avoid duplicate predictions
+  //     this.data.clear();
+  //   } catch (error) {
+  //     console.error("Prediction error:", error);
+  //   } finally {
+  //     this.isProcessing = false;
+  //   }
+  // }
 
   stopTracking() {
-    this.data.removeListeners();
+    this.mouseData.removeListeners();
+    this.keyboardData.removeListeners();
   }
 }

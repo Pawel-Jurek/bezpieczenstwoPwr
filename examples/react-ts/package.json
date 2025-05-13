@@ -1,7 +1,7 @@
 {
   "name": "react-ts",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "homepage": "https://Pawel-Jurek.github.io/bezpieczenstwoPwr",
   "scripts": {
@@ -13,6 +13,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bbotd": "file:../../packages/bbotd",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

@@ -1,6 +1,7 @@
 import * as tf from "@tensorflow/tfjs";
 export type ButtonType = "NoButton" | "Left" | "Right";
 export type State = "Pressed" | "Released" | "Move" | "Drag";
+import { Queue } from "./queue";
 
 export type DataRecord = {
   timestamp: number;
@@ -12,18 +13,6 @@ export type DataRecord = {
 /**
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button} for explanation on numbers representing buttons
  */
-const BUTTON_MAP = Object.freeze<Record<ButtonType, number>>({
-  NoButton: 0,
-  Left: 1,
-  Right: 2,
-});
-
-const STATE_MAP = Object.freeze<Record<State, number>>({
-  Pressed: 0,
-  Released: 1,
-  Move: 2,
-  Drag: 3,
-});
 
 const SMTH_MAP = Object.freeze<Record<string, number>>({
   mousedown: 0,
@@ -41,43 +30,21 @@ function isMouseEvent(e: Event): e is MouseEvent {
   return ALLOWED_EVENT_TYPES.includes(e.type);
 }
 
-class Queue<T> {
-  #queue: T[] = [];
+function minMaxScaler(arr: number[], value: number): number {
+  const max = (arr: number[]) => Math.max(...arr);
+  const min = (arr: number[]) => Math.min(...arr);
 
-  /**
-   * @param [maxSize=100]
-   */
-  constructor(private readonly maxSize: number = 75) { }
+  const _min = min(arr);
+  const _max = max(arr);
 
-  enqueue(el: T) {
-    if (this.#queue.length >= this.maxSize) {
-      this.#queue.shift();
-    }
-
-    this.#queue.push(el);
-  }
-
-  dequeue() {
-    return this.#queue.shift();
-  }
-
-  clear() {
-    this.#queue.length = 0;
-  }
-
-  length() {
-    return this.#queue.length;
-  }
-
-  [Symbol.iterator](): IterableIterator<T> {
-    return this.#queue[Symbol.iterator]();
-  }
+  return (value - _min) / (_max - _min);
 }
 
 export class Data {
   #isButtonDown: boolean = false;
 
   #queue: Queue<DataRecord> = new Queue();
+  #cb: (() => void) | undefined = undefined;
 
   constructor(private readonly target: EventTarget = window) { }
 
@@ -98,6 +65,9 @@ export class Data {
     };
 
     this.#queue.enqueue(record);
+    if (this.#cb) {
+      this.#cb();
+    }
   }
 
   private onMouseDown(e: Event) {
@@ -113,7 +83,8 @@ export class Data {
   /**
    * Starts tracking mouse events on window
    */
-  addListeners() {
+  addListeners(cb?: () => void) {
+    this.#cb = cb;
     this.target.addEventListener("mousemove", this.onMouseMove.bind(this));
     this.target.addEventListener("mousedown", this.onMouseDown.bind(this));
     this.target.addEventListener("mouseup", this.onMouseUp.bind(this));
@@ -130,38 +101,60 @@ export class Data {
 
   toTensor(): tf.Tensor {
     const q = Array.from(this.#queue);
-    const tensor = tf.tensor2d(
-      q.map((record) => [
-        normalizeEventType(record.eventType),
-        normalizeCoord(record.x),
-        normalizeCoord(record.y),
-        normalizeTimestamp(record.timestamp),
-      ]),
-      [q.length, 4],
-    );
 
-    return tensor.reshape([1, q.length, 4]);
+    if (q.length < 2) {
+      throw new Error("Not enough data to compute features");
+    }
+
+    const xs = q.map((r) => r.x);
+    const ys = q.map((r) => r.y);
+    const times = q.map((r) => r.timestamp);
+
+    // Deltas
+    const timeDiffs = times.slice(1).map((t, i) => t - times[i]!);
+    const xDiffs = xs.slice(1).map((x, i) => x - xs[i]!);
+    const yDiffs = ys.slice(1).map((y, i) => y - ys[i]!);
+
+    // X - Xmin / Xmax - Xmin
+
+    const mean = (arr: number[]) => arr.reduce((a, b) => a + b, 0) / arr.length;
+    const std = (arr: number[], avg = mean(arr)) =>
+      Math.sqrt(mean(arr.map((x) => (x - avg) ** 2)));
+    const sum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
+    const max = (arr: number[]) => Math.max(...arr);
+    // const min = (arr: number[]) => Math.min(...arr);
+
+    const features = [
+      // min(xs),
+      // max(xs),
+      // min(ys),
+      // max(ys),
+      minMaxScaler(timeDiffs, mean(timeDiffs)),
+      minMaxScaler(timeDiffs, std(timeDiffs)),
+      minMaxScaler(timeDiffs, sum(timeDiffs)),
+      minMaxScaler(timeDiffs, max(timeDiffs)),
+
+      minMaxScaler(xDiffs, mean(xDiffs)),
+      minMaxScaler(xDiffs, std(xDiffs)),
+      minMaxScaler(xDiffs, sum(xDiffs)),
+
+      minMaxScaler(yDiffs, mean(yDiffs)),
+      minMaxScaler(yDiffs, std(yDiffs)),
+      minMaxScaler(yDiffs, sum(yDiffs)),
+    ];
+
+    console.log("(mouse) features", features);
+
+    const tensor = tf.tensor2d([features], [1, features.length]);
+
+    return tensor;
   }
 
   clear(): void {
     this.#queue.clear();
   }
-}
 
-function normalizeEventType(eventType: string) {
-  return SMTH_MAP[eventType] ?? -1;
-}
-
-const normalizeTimestamp = (function() {
-  let prevTimestamp: number | undefined;
-
-  return (timestamp: number) => {
-    const diff = timestamp - (prevTimestamp ?? timestamp);
-    prevTimestamp = timestamp;
-    return diff;
-  };
-})();
-
-function normalizeCoord(value: number) {
-  return value / window.innerWidth;
+  length(): number {
+    return this.#queue.length();
+  }
 }
