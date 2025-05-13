@@ -51,9 +51,9 @@ export class KeyboardData implements Data {
       i > 0 ? release - this.#releaseTimes[i - 1]! : 0,
     );
 
-    console.log(holdTimes);
-    console.log(pressDiffs);
-    console.log(releaseDiffs);
+    // console.log(holdTimes);
+    // console.log(pressDiffs);
+    // console.log(releaseDiffs);
 
     const features: number[] = [];
 
@@ -67,7 +67,7 @@ export class KeyboardData implements Data {
       }
     }
 
-    console.log("(keyboard) features", features);
+    // console.log("(keyboard) features", features);
 
     const tensor = tf.tensor2d([features], [1, 37]);
 

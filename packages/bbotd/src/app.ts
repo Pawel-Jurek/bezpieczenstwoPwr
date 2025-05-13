@@ -92,33 +92,6 @@ export class App {
     });
   }
 
-  // async processData() {
-  //   if (this.isProcessing) return;
-  //
-  //   try {
-  //     const len = this.data.length();
-  //     if (len < 100) return;
-  //
-  //     this.isProcessing = true;
-  //     const tensor = this.data.toTensor();
-  //
-  //     const result = await this.model.predict(tensor);
-  //
-  //     console.log(
-  //       "Prediction:",
-  //       result > 0.5 ? "bot" : "human",
-  //       `${(result * 100.0).toFixed(2)}%`,
-  //     );
-  //
-  //     // Clear queue after processing to avoid duplicate predictions
-  //     this.data.clear();
-  //   } catch (error) {
-  //     console.error("Prediction error:", error);
-  //   } finally {
-  //     this.isProcessing = false;
-  //   }
-  // }
-
   stopTracking() {
     this.mouseData.removeListeners();
     this.keyboardData.removeListeners();
