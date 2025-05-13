@@ -37,7 +37,7 @@ jobs:
         run: npm run build
 
       - name: Publish to NPM
-        if: github.event_name == 'push'
+        # if: github.event_name == 'push'
         working-directory: ./packages/bbotd
         run: npm publish --access public
         env:
