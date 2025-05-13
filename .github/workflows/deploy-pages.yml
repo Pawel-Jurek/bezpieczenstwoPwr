@@ -42,7 +42,7 @@ jobs:
 
       - name: Install react deps
         working-directory: ./examples/react-ts
-        run: npm install
+        run: npm install --ignore-scripts
 
       - name: Build react example
         working-directory: ./examples/react-ts
