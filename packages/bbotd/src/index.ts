@@ -1,5 +1,13 @@
-import { App } from "./app";
+// import { App } from "./app";
+//
+// const app = new App();
+//
+// app.init();
+//
+import { BotDetector } from "./bot-detector";
 
-const app = new App();
+export { BotDetector };
 
-app.init();
+if (typeof window !== "undefined") {
+  (window as any).bbotd = { BotDetector };
+}

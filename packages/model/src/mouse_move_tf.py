@@ -102,6 +102,7 @@ def train_mouse_model_tf():
     model = get_model(input_shape=X_train.shape[1])
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
+    print("Training model...")
     history = model.fit(
         X_train, y_train,
         validation_split=0.1,
@@ -111,8 +112,13 @@ def train_mouse_model_tf():
         class_weight=class_weights
     )
 
+
     model.save(f"out/mouse_model_dropout.h5")
 
+    import joblib
+    joblib.dump(scaler, "out/mouse_scaler.pkl")
+
+    print("\nModel and scaler saved successfully!")
     # Report
 
     # binarizer = Binarizer(threshold=0.5)

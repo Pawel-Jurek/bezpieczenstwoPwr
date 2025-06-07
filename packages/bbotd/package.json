@@ -6,6 +6,7 @@
     "bot-detection",
     "security"
   ],
+  "sideEffects": true,
   "homepage": "https://github.com/Pawel-Jurek/bezpieczenstwoPwr/packages/bbotd",
   "repository": {
     "type": "git",
@@ -14,6 +15,12 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "author": "Krystian Ogonowski",
   "type": "module",
   "main": "dist/index.js",
