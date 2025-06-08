@@ -1,13 +1,14 @@
-// import { App } from "./app";
-//
-// const app = new App();
-//
-// app.init();
-//
 import { BotDetector } from "./bot-detector";
+import "./ui";
 
-export { BotDetector };
+(async () => {
+  try {
+    const globalDetector = new BotDetector();
+    await globalDetector.initialize();
+    globalDetector.startListening();
 
-if (typeof window !== "undefined") {
-  (window as any).bbotd = { BotDetector };
-}
+    window.bbotd = globalDetector;
+  } catch (error) {
+    console.error("Bot detector auto-initialization failed:", error);
+  }
+})();

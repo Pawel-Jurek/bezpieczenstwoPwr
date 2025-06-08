@@ -29,9 +29,11 @@
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "build": "rollup -c",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "watch": "rollup -c -w"
   },
   "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
     "rollup": "^2.79.2",
@@ -41,6 +43,5 @@
   },
   "peerDependencies": {
     "@tensorflow/tfjs": "^4.22.0"
-  },
-  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+  }
 }

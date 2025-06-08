@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import json
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import classification_report, confusion_matrix
@@ -115,8 +116,19 @@ def train_mouse_model_tf():
 
     model.save(f"out/mouse_model_dropout.h5")
 
-    import joblib
-    joblib.dump(scaler, "out/mouse_scaler.pkl")
+    scaler_data = {
+        "min_": scaler.min_.tolist(),
+        "scale_":scaler.scale_.tolist(),
+        "data_min_": scaler.data_min_.tolist(),
+        "data_max_": scaler.data_range_.tolist(),
+        "feature_range": list(scaler.feature_range),
+        "n_features_in_": int(scaler.n_features_in_),
+        "feature_names_in_": scaler.feature_names_in_.tolist() if hasattr(scaler, 'feature_names_in_') else None
+    }
+
+    with open('out/mouse_scaler.json', 'w') as f:
+        json.dump(scaler_data, f, indent=2)
+
 
     print("\nModel and scaler saved successfully!")
     # Report

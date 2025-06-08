@@ -2,10 +2,8 @@ import type { BotDetector } from "./bot-detector";
 
 declare global {
   interface Window {
-    bbotd?: {
-      BotDetector: typeof BotDetector;
-    };
+    bbotd?: BotDetector;
   }
 }
 
-export { };
+export {};
