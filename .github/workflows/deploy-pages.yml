@@ -4,7 +4,13 @@ on:
   push:
     branches:
       - master
-      - fix/bbotd-npm-cicd-changes-scope
+    paths:
+      - "docs/**"
+      - "examples/react-ts/**"
+      - ".github/workflows/deploy-pages.yml"
+  pull_request:
+    branches:
+      - master
     paths:
       - "docs/**"
       - "examples/react-ts/**"
@@ -36,7 +42,7 @@ jobs:
 
       - name: Install react deps
         working-directory: ./examples/react-ts
-        run: npm install
+        run: npm install --ignore-scrips
 
       - name: Build react example
         working-directory: ./examples/react-ts
@@ -53,6 +59,7 @@ jobs:
           echo '<meta http-equiv="refresh" content="0; url=docs/">' > gh-pages/index.html
 
       - name: Deploy to Github Pages
+        # if: github.event_name == 'push'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -32,18 +32,16 @@ export class Model {
       throw new Error("Model is not loaded yet.");
     }
 
-    console.log("predicting keyboard...");
+    const prediction = this.#model.execute(input) as tf.Tensor;
 
-    const prediction = (await this.#model.executeAsync(input)) as tf.Tensor;
+    const result = await prediction.data();
 
-    const result = (await prediction.array()) as number[][];
-
-    console.log("prediction", JSON.stringify(prediction));
-    console.log("result", JSON.stringify(result));
+    // console.log("result", JSON.stringify(result));
 
     tf.dispose([input, prediction]);
 
-    const predictionValue = result[0]?.[0];
+    // const predictionValue = result[0]?.[0];
+    const predictionValue = result.at(0);
 
     if (predictionValue === undefined) {
       throw new Error("No prediction value somehow");

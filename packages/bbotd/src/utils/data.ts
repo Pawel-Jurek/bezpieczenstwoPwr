@@ -143,7 +143,7 @@ export class Data {
       minMaxScaler(yDiffs, sum(yDiffs)),
     ];
 
-    console.log("(mouse) features", features);
+    // console.log("(mouse) features", features);
 
     const tensor = tf.tensor2d([features], [1, features.length]);
 

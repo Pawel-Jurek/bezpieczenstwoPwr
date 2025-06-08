@@ -1,6 +1,6 @@
 {
   "name": "bbotd",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Detect basic bots on your website easily.",
   "keywords": [
     "bot-detection",
