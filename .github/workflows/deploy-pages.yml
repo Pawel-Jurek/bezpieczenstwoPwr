@@ -46,6 +46,8 @@ jobs:
         run: |
           mkdir -p gh-pages/docs
           mkdir -p gh-pages/react-ts
+          mkdir -p gh-pages/accuracy-test
+          mkdir -p gh-pages/typing-test
           cp -r docs/.vitepress/dist/* gh-pages/docs/
           cp -r examples/react-ts/dist/* gh-pages/react-ts/
           cp -r examples/MouseAccuracy/* gh-pages/accuracy-test/
