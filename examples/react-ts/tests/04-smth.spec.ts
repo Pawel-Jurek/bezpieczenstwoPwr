@@ -122,7 +122,7 @@ BOT_MODES.forEach((mode) => {
 
       const OVERLAY_SELECTOR = 'div:has-text("Bot Detected")';
 
-      // Race between typing and bot detection overlay appearing
+      // Race between typing and bot detection overlay appearin
       const typingPromise = typeWithBotBehavior(page, paragraphText, mode);
       const overlayPromise = page.locator(OVERLAY_SELECTOR).waitFor({
         state: "visible",
