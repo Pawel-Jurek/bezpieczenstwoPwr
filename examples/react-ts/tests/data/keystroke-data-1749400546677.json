@@ -1,0 +1,178 @@
+{
+  "sessions": [
+    {
+      "selector": "#firstname",
+      "keystrokes": [
+        {
+          "char": "M",
+          "holdTime": 50,
+          "interval": 0,
+          "timestamp": 1749400529442
+        },
+        {
+          "char": "a",
+          "holdTime": 70,
+          "interval": 103,
+          "timestamp": 1749400529595
+        },
+        {
+          "char": "r",
+          "holdTime": 47,
+          "interval": 52,
+          "timestamp": 1749400529717
+        },
+        {
+          "char": "k",
+          "holdTime": 69,
+          "interval": 96,
+          "timestamp": 1749400529860
+        },
+        {
+          "char": "Tab",
+          "holdTime": 0,
+          "interval": 124,
+          "timestamp": 1749400530053
+        }
+      ],
+      "startTime": 1749400527985,
+      "endTime": 1749400530054
+    },
+    {
+      "selector": "#lastname",
+      "keystrokes": [
+        {
+          "char": "S",
+          "holdTime": 72,
+          "interval": 0,
+          "timestamp": 1749400530459
+        },
+        {
+          "char": "c",
+          "holdTime": 69,
+          "interval": 137,
+          "timestamp": 1749400530668
+        },
+        {
+          "char": "o",
+          "holdTime": 47,
+          "interval": 620,
+          "timestamp": 1749400531357
+        },
+        {
+          "char": "u",
+          "holdTime": 47,
+          "interval": 110,
+          "timestamp": 1749400531514
+        },
+        {
+          "char": "t",
+          "holdTime": 48,
+          "interval": 66,
+          "timestamp": 1749400531627
+        },
+        {
+          "char": "Tab",
+          "holdTime": 0,
+          "interval": 150,
+          "timestamp": 1749400531825
+        }
+      ],
+      "startTime": 1749400530057,
+      "endTime": 1749400531825
+    },
+    {
+      "selector": "#email",
+      "keystrokes": [
+        {
+          "char": "m",
+          "holdTime": 69,
+          "interval": 0,
+          "timestamp": 1749400532233
+        },
+        {
+          "char": "a",
+          "holdTime": 0,
+          "interval": 39,
+          "timestamp": 1749400532341
+        },
+        {
+          "char": "r",
+          "holdTime": 51,
+          "interval": 112,
+          "timestamp": 1749400532414
+        },
+        {
+          "char": "k",
+          "holdTime": 48,
+          "interval": 53,
+          "timestamp": 1749400532518
+        },
+        {
+          "char": "@",
+          "holdTime": 68,
+          "interval": 326,
+          "timestamp": 1749400532892
+        },
+        {
+          "char": "s",
+          "holdTime": 47,
+          "interval": 508,
+          "timestamp": 1749400533468
+        },
+        {
+          "char": "c",
+          "holdTime": 70,
+          "interval": 680,
+          "timestamp": 1749400534195
+        },
+        {
+          "char": "o",
+          "holdTime": 0,
+          "interval": 31,
+          "timestamp": 1749400534296
+        },
+        {
+          "char": "u",
+          "holdTime": 50,
+          "interval": 99,
+          "timestamp": 1749400534364
+        },
+        {
+          "char": "t",
+          "holdTime": 69,
+          "interval": 46,
+          "timestamp": 1749400534460
+        },
+        {
+          "char": ".",
+          "holdTime": 48,
+          "interval": 2645,
+          "timestamp": 1749400537174
+        },
+        {
+          "char": "c",
+          "holdTime": 68,
+          "interval": 126,
+          "timestamp": 1749400537348
+        },
+        {
+          "char": "o",
+          "holdTime": 0,
+          "interval": 12,
+          "timestamp": 1749400537428
+        },
+        {
+          "char": "m",
+          "holdTime": 73,
+          "interval": 80,
+          "timestamp": 1749400537496
+        }
+      ],
+      "startTime": 1749400531829,
+      "endTime": 1749400546617
+    }
+  ],
+  "generatedAt": "2025-06-08T16:35:46.676Z",
+  "description": "Human keystroke behavior data for e2e testing",
+  "usage": "Use this data to simulate human-like typing in Playwright tests"
+}

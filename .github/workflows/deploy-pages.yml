@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - fix/bbotd-npm-cicd-changes-scope
+      - fix/integration
     paths:
       - "docs/**"
       - "examples/react-ts/**"
@@ -48,6 +48,9 @@ jobs:
           mkdir -p gh-pages/react-ts
           cp -r docs/.vitepress/dist/* gh-pages/docs/
           cp -r examples/react-ts/dist/* gh-pages/react-ts/
+          cp -r examples/MouseAccuracy/* gh-pages/accuracy-test/
+          cp -r examples/Typing-Speed-App/* gh-pages/typing-test/
+
       - name: Add index.html redirect to /docs/
         run: |
           echo '<meta http-equiv="refresh" content="0; url=docs/">' > gh-pages/index.html

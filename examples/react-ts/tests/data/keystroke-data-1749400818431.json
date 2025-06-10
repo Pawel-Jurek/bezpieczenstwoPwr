@@ -1,0 +1,214 @@
+{
+  "sessions": [
+    {
+      "selector": "#firstname",
+      "keystrokes": [
+        {
+          "char": "M",
+          "holdTime": 76,
+          "interval": 0,
+          "timestamp": 1749400803441
+        },
+        {
+          "char": "a",
+          "holdTime": 70,
+          "interval": 37,
+          "timestamp": 1749400803554
+        },
+        {
+          "char": "r",
+          "holdTime": 68,
+          "interval": 50,
+          "timestamp": 1749400803674
+        },
+        {
+          "char": "k",
+          "holdTime": 69,
+          "interval": 75,
+          "timestamp": 1749400803817
+        },
+        {
+          "char": "Tab",
+          "holdTime": 0,
+          "interval": 104,
+          "timestamp": 1749400803990
+        }
+      ],
+      "startTime": 1749400802811,
+      "endTime": 1749400803991
+    },
+    {
+      "selector": "#lastname",
+      "keystrokes": [
+        {
+          "char": "S",
+          "holdTime": 96,
+          "interval": 0,
+          "timestamp": 1749400804350
+        },
+        {
+          "char": "c",
+          "holdTime": 68,
+          "interval": 94,
+          "timestamp": 1749400804540
+        },
+        {
+          "char": "o",
+          "holdTime": 0,
+          "interval": 54,
+          "timestamp": 1749400804662
+        },
+        {
+          "char": "u",
+          "holdTime": 73,
+          "interval": 121,
+          "timestamp": 1749400804729
+        },
+        {
+          "char": "t",
+          "holdTime": 47,
+          "interval": 24,
+          "timestamp": 1749400804826
+        },
+        {
+          "char": "Tab",
+          "holdTime": 0,
+          "interval": 454,
+          "timestamp": 1749400805327
+        }
+      ],
+      "startTime": 1749400803991,
+      "endTime": 1749400805328
+    },
+    {
+      "selector": "#email",
+      "keystrokes": [
+        {
+          "char": "m",
+          "holdTime": 45,
+          "interval": 0,
+          "timestamp": 1749400805629
+        },
+        {
+          "char": "a",
+          "holdTime": 88,
+          "interval": 64,
+          "timestamp": 1749400805738
+        },
+        {
+          "char": "r",
+          "holdTime": 46,
+          "interval": 9,
+          "timestamp": 1749400805835
+        },
+        {
+          "char": "k",
+          "holdTime": 72,
+          "interval": 9,
+          "timestamp": 1749400805890
+        },
+        {
+          "char": ".",
+          "holdTime": 49,
+          "interval": 177,
+          "timestamp": 1749400806139
+        },
+        {
+          "char": "s",
+          "holdTime": 69,
+          "interval": 57,
+          "timestamp": 1749400806245
+        },
+        {
+          "char": "c",
+          "holdTime": 0,
+          "interval": 72,
+          "timestamp": 1749400806386
+        },
+        {
+          "char": "o",
+          "holdTime": 18,
+          "interval": 171,
+          "timestamp": 1749400806485
+        },
+        {
+          "char": "u",
+          "holdTime": 28,
+          "interval": 52,
+          "timestamp": 1749400806555
+        },
+        {
+          "char": "t",
+          "holdTime": 72,
+          "interval": 65,
+          "timestamp": 1749400806648
+        },
+        {
+          "char": "@",
+          "holdTime": 94,
+          "interval": 287,
+          "timestamp": 1749400807007
+        },
+        {
+          "char": "m",
+          "holdTime": 69,
+          "interval": 78,
+          "timestamp": 1749400807179
+        },
+        {
+          "char": "a",
+          "holdTime": 0,
+          "interval": 37,
+          "timestamp": 1749400807285
+        },
+        {
+          "char": "i",
+          "holdTime": 54,
+          "interval": 116,
+          "timestamp": 1749400807364
+        },
+        {
+          "char": "l",
+          "holdTime": 69,
+          "interval": 113,
+          "timestamp": 1749400807531
+        },
+        {
+          "char": ".",
+          "holdTime": 70,
+          "interval": 113,
+          "timestamp": 1749400807713
+        },
+        {
+          "char": "c",
+          "holdTime": 67,
+          "interval": 62,
+          "timestamp": 1749400807845
+        },
+        {
+          "char": "o",
+          "holdTime": 0,
+          "interval": 34,
+          "timestamp": 1749400807946
+        },
+        {
+          "char": "m",
+          "holdTime": 96,
+          "interval": 79,
+          "timestamp": 1749400807991
+        },
+        {
+          "char": "Tab",
+          "holdTime": 0,
+          "interval": 406,
+          "timestamp": 1749400808493
+        }
+      ],
+      "startTime": 1749400805328,
+      "endTime": 1749400813361
+    }
+  ],
+  "generatedAt": "2025-06-08T16:40:18.431Z",
+  "description": "Human keystroke behavior data for e2e testing",
+  "usage": "Use this data to simulate human-like typing in Playwright tests"
+}

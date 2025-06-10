@@ -1,19 +1,20 @@
 {
   "name": "bbotd",
-  "version": "0.1.2",
+  "version": "0.3.1-beta.5",
   "description": "Detect basic bots on your website easily.",
   "keywords": [
     "bot-detection",
     "security"
   ],
   "sideEffects": true,
-  "homepage": "https://github.com/Pawel-Jurek/bezpieczenstwoPwr/packages/bbotd",
+  "homepage": "https://pawel-jurek.github.io/bezpieczenstwoPwr/docs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Pawel-Jurek/bezpieczenstwoPwr/packages/bbotd"
+    "url": "git+https://github.com/Pawel-Jurek/bezpieczenstwoPwr.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "assets"
   ],
   "exports": {
     ".": {
@@ -35,7 +36,9 @@
   "devDependencies": {
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-replace": "^6.0.2",
     "@rollup/plugin-typescript": "^12.1.2",
+    "@rollup/plugin-url": "^8.0.2",
     "rollup": "^2.79.2",
     "rollup-plugin-copy": "^3.5.0",
     "typescript": "^5.8.2",

@@ -1,6 +1,4 @@
 import * as tf from "@tensorflow/tfjs";
-import mouseScalerConfig from "../models/mouse/mouse_scaler.json";
-import keyboardScalerConfig from "../models/keyboard/keyboard_scaler.json";
 
 export interface ScalerData {
   min_: number[];
@@ -16,12 +14,31 @@ export interface ScalerData {
 export class ModelLoader {
   private static readonly MODEL_BASE_PATH = "./models";
 
+  private static getAssetUrl(filename: string): string {
+    const baseUrl = new URL("../assets/", import.meta.url);
+    const assetUrl = new URL(filename, baseUrl);
+    return assetUrl.href;
+  }
+
+  private static async loadAssetAsText(filename: string): Promise<string> {
+    const url = this.getAssetUrl(filename);
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to load asset: ${filename}`);
+    }
+    return response.text();
+  }
+
+  private static async loadAssetAsJson<T>(filename: string): Promise<T> {
+    const text = await this.loadAssetAsText(filename);
+    return JSON.parse(text) as T;
+  }
+
   static async loadModel(
-    modelName: "keyboard" | "mouse",
+    modelName: "keyboard" | "mouse"
   ): Promise<tf.GraphModel> {
     try {
-      const modelUrl = `${this.MODEL_BASE_PATH}/${modelName}/model.json`;
-
+      const modelUrl = this.getAssetUrl(`${modelName}/model.json`);
       const model = await tf.loadGraphModel(modelUrl);
 
       if (process.env.NODE_ENV === "development") {
@@ -40,44 +57,10 @@ export class ModelLoader {
 
   static async loadScaler<T>(modelName: "keyboard" | "mouse"): Promise<T> {
     try {
-      if (modelName === "keyboard") {
-        return keyboardScalerConfig as T;
-      } else if (modelName === "mouse") {
-        return mouseScalerConfig as T;
-      } else {
-        throw new Error("DUPA");
-      }
-
-      const scalerUrl = `${this.MODEL_BASE_PATH}/${modelName}/${modelName}_scaler.json`;
-      const response = await fetch(scalerUrl);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      // Get the response text first to debug
-      const responseText = await response.text();
-      console.log(
-        "Raw scaler response:",
-        responseText.substring(0, 200) + "...",
-      );
-
-      // Check if response is empty
-      if (!responseText.trim()) {
-        throw new Error("Scaler file is empty");
-      }
-
-      const scalerData = await response.json();
-
-      if (process.env.NODE_ENV === "development") {
-        console.log(`Scaler ${modelName} loaded successfully`);
-      }
-
-      return scalerData;
+      const filename = `${modelName}/${modelName}_scaler.json`;
+      return await this.loadAssetAsJson<T>(filename);
     } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(`Failed to load ${modelName} scaler: ${error.message}`);
-      }
+      console.error(error);
       throw error;
     }
   }
