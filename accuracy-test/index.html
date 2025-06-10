@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Reaction Challenge</title>
+
+    <link rel="stylesheet" type="text/css" href="main.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bbotd@0.3.1-beta.5/dist/index.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Improve Your Mouse Accuracy</h1>
+    <div class="container">
+      <div id="currentTime">
+        <p>Your reaction time: <span id="time"></span>seconds</p>
+      </div>
+      <div id="overallTime">
+        <p>
+          Sample Size:<span id="sampleSize"></span> Reaction Average:<span
+            id="reactionAverage"
+          ></span>
+        </p>
+      </div>
+    </div>
+    <div id="box"></div>
+    <div id="circle"></div>
+
+    <script type="text/javascript" src="scripts.js"></script>
+  </body>
+</html>
