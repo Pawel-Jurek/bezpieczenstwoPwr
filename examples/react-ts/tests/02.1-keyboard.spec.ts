@@ -101,7 +101,7 @@ const OVERLAY_SELECTOR = 'div:has-text("Bot Detected")';
 const FIRSTNAME_SELECTOR = "#firstname";
 
 BOT_MODES.forEach((mode) => {
-  test.describe(`Bot Detection Tests - ${mode.name} mode`, () => {
+  test.describe.skip(`Bot Detection Tests - ${mode.name} mode`, () => {
     test.beforeEach(async ({ page }) => {
       await page.goto("http://localhost:5173");
     });

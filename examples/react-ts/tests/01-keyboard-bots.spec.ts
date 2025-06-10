@@ -1,51 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
-
-// Bot typing modes with their characteristics
-interface TypingMode {
-  name: string;
-  holdTime: { mean: number; stdDev?: number; range?: [number, number] };
-  interval: { mean: number; stdDev?: number; range?: [number, number] };
-}
-
-const BOT_MODES: TypingMode[] = [
-  {
-    name: "regular",
-    holdTime: { mean: 100, stdDev: 0 },
-    interval: { mean: 150, stdDev: 0 },
-  },
-  {
-    name: "fast",
-    holdTime: { mean: 80, stdDev: 5 },
-    interval: { mean: 100, stdDev: 10 },
-  },
-  {
-    name: "humanlike",
-    holdTime: { mean: 120, stdDev: 20 },
-    interval: { mean: 180, stdDev: 30 },
-  },
-  {
-    name: "chaotic",
-    holdTime: { mean: 150, stdDev: 50 },
-    interval: { mean: 200, stdDev: 80 },
-  },
-  {
-    name: "precise",
-    holdTime: { mean: 90, range: [-2, 2] },
-    interval: { mean: 130, range: [-2, 2] },
-  },
-];
-
-// Utility functions for random number generation
-function normalRandom(mean: number, stdDev: number): number {
-  const u1 = Math.random();
-  const u2 = Math.random();
-  const z0 = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
-  return mean + z0 * stdDev;
-}
-
-function uniformRandom(min: number, max: number): number {
-  return Math.random() * (max - min) + min;
-}
+import { BOT_MODES } from "./utils/bot";
+import { TypingMode } from "./utils/bot";
+import { normalRandom, uniformRandom } from "./utils/rand";
 
 function generateTiming(
   config: TypingMode["holdTime"] | TypingMode["interval"],
