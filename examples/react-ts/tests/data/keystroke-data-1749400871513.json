@@ -1,0 +1,75 @@
+{
+  "sessions": [
+    {
+      "selector": "#firstname",
+      "keystrokes": [
+        {
+          "char": "J",
+          "holdTime": 52,
+          "interval": 0,
+          "timestamp": 1749400860247
+        },
+        {
+          "char": "o",
+          "holdTime": 70,
+          "interval": 94,
+          "timestamp": 1749400860393
+        },
+        {
+          "char": "h",
+          "holdTime": 25,
+          "interval": 172,
+          "timestamp": 1749400860635
+        },
+        {
+          "char": "n",
+          "holdTime": 48,
+          "interval": 136,
+          "timestamp": 1749400860796
+        },
+        {
+          "char": "Tab",
+          "holdTime": 0,
+          "interval": 567,
+          "timestamp": 1749400861411
+        }
+      ],
+      "startTime": 1749400859103,
+      "endTime": 1749400861411
+    },
+    {
+      "selector": "#lastname",
+      "keystrokes": [
+        {
+          "char": "D",
+          "holdTime": 72,
+          "interval": 0,
+          "timestamp": 1749400862070
+        },
+        {
+          "char": "o",
+          "holdTime": 68,
+          "interval": 426,
+          "timestamp": 1749400862568
+        },
+        {
+          "char": "e",
+          "holdTime": 68,
+          "interval": 19,
+          "timestamp": 1749400862655
+        },
+        {
+          "char": "Tab",
+          "holdTime": 0,
+          "interval": 436,
+          "timestamp": 1749400863159
+        }
+      ],
+      "startTime": 1749400861411,
+      "endTime": 1749400863160
+    }
+  ],
+  "generatedAt": "2025-06-08T16:41:11.513Z",
+  "description": "Human keystroke behavior data for e2e testing",
+  "usage": "Use this data to simulate human-like typing in Playwright tests"
+}

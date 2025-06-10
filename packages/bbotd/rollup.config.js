@@ -1,49 +1,51 @@
 import typescript from "@rollup/plugin-typescript";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import { babel } from "@rollup/plugin-babel";
+import resolve from "@rollup/plugin-node-resolve";
 import copy from "rollup-plugin-copy";
-import { terser } from "rollup-plugin-terser";
+import json from "@rollup/plugin-json";
+import url from "@rollup/plugin-url";
+import replace from "@rollup/plugin-replace";
 
 export default {
   input: "src/index.ts",
   output: {
-    file: "dist/index.js",
-    sourcemap: true,
+    dir: "dist",
     format: "umd",
     name: "bbotd",
+    sourcemap: true,
     globals: {
       "@tensorflow/tfjs": "tf",
     },
   },
   external: ["@tensorflow/tfjs"],
   plugins: [
-    nodeResolve({
-      browser: true,
-      preferBuiltins: false,
-    }),
-    commonjs(),
+    resolve(),
+    json(),
     typescript({
       tsconfig: "./tsconfig.json",
       declaration: true,
-      declarationDir: "dist/types",
+      declarationDir: "dist",
     }),
-    babel({
-      babelHelpers: "bundled",
-      extensions: [".ts", ".js"],
-    }),
-    terser({
-      format: {
-        comments: false,
-      },
+    url({
+      include: ["**/*.json", "**/*.bin"],
+      limit: 0,
+      emitFiles: true,
+      fileName: "[name][extname]",
     }),
     copy({
       targets: [
         {
-          src: "public/models",
-          dest: "dist",
+          src: "public/models/*",
+          dest: "assets/",
         },
       ],
+      verbose: true,
+      hook: "buildEnd",
+    }),
+    replace({
+      preventAssignment: true,
+      "process.env.NODE_ENV": JSON.stringify(
+        process.env.NODE_ENV || "production",
+      ),
     }),
   ],
 };

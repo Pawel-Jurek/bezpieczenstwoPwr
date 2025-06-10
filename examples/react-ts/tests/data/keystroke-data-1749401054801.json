@@ -1,0 +1,111 @@
+{
+  "sessions": [
+    {
+      "selector": "#firstname",
+      "keystrokes": [
+        {
+          "char": "M",
+          "holdTime": 52,
+          "interval": 0,
+          "timestamp": 1749401045749
+        },
+        {
+          "char": "e",
+          "holdTime": 69,
+          "interval": 83,
+          "timestamp": 1749401045884
+        },
+        {
+          "char": "l",
+          "holdTime": 46,
+          "interval": 79,
+          "timestamp": 1749401046032
+        },
+        {
+          "char": "o",
+          "holdTime": 46,
+          "interval": 114,
+          "timestamp": 1749401046192
+        },
+        {
+          "char": "d",
+          "holdTime": 47,
+          "interval": 106,
+          "timestamp": 1749401046344
+        },
+        {
+          "char": "y",
+          "holdTime": 48,
+          "interval": 99,
+          "timestamp": 1749401046490
+        },
+        {
+          "char": "Tab",
+          "holdTime": 0,
+          "interval": 382,
+          "timestamp": 1749401046920
+        }
+      ],
+      "startTime": 1749401045072,
+      "endTime": 1749401046921
+    },
+    {
+      "selector": "#lastname",
+      "keystrokes": [
+        {
+          "char": "T",
+          "holdTime": 74,
+          "interval": 0,
+          "timestamp": 1749401047395
+        },
+        {
+          "char": "r",
+          "holdTime": 69,
+          "interval": 111,
+          "timestamp": 1749401047580
+        },
+        {
+          "char": "i",
+          "holdTime": 48,
+          "interval": 30,
+          "timestamp": 1749401047679
+        },
+        {
+          "char": "s",
+          "holdTime": 0,
+          "interval": 83,
+          "timestamp": 1749401047810
+        },
+        {
+          "char": "t",
+          "holdTime": 121,
+          "interval": 178,
+          "timestamp": 1749401047905
+        },
+        {
+          "char": "i",
+          "holdTime": 7,
+          "interval": 4,
+          "timestamp": 1749401048030
+        },
+        {
+          "char": "n",
+          "holdTime": 68,
+          "interval": 66,
+          "timestamp": 1749401048103
+        },
+        {
+          "char": "Tab",
+          "holdTime": 0,
+          "interval": 603,
+          "timestamp": 1749401048774
+        }
+      ],
+      "startTime": 1749401046921,
+      "endTime": 1749401048775
+    }
+  ],
+  "generatedAt": "2025-06-08T16:44:14.800Z",
+  "description": "Human keystroke behavior data for e2e testing",
+  "usage": "Use this data to simulate human-like typing in Playwright tests"
+}

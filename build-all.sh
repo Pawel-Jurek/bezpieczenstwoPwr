@@ -26,6 +26,8 @@ cyan "=== [3] Move model files to bbotd ==="
 cd ../..
 rm -rf packages/bbotd/public/models/
 mkdir -p packages/bbotd/public/models/
+mv packages/model/out/mouse_scaler.json packages/model/models/mouse/
+mv packages/model/out/keyboard_scaler.json packages/model/models/keyboard/
 mv packages/model/models/ packages/bbotd/public/
 
 cyan "=== [4] Build bbotd package ==="

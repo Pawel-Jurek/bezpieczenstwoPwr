@@ -1,5 +1,16 @@
-import { App } from "./app";
+import { BotDetector } from "./bot-detector";
+import { SimpleLogger } from "./logger";
+import "./ui";
 
-const app = new App();
+(async () => {
+  try {
+    const globalDetector = new BotDetector();
+    await globalDetector.initialize();
+    globalDetector.startListening();
 
-app.init();
+    window.bbotd = globalDetector;
+    window.SimpleLogger = SimpleLogger;
+  } catch (error) {
+    console.error("Bot detector auto-initialization failed:", error);
+  }
+})();

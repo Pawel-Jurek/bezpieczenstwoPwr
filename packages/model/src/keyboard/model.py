@@ -1,3 +1,4 @@
+import json
 import pandas as pd
 import tensorflow as tf
 from tensorflow import keras
@@ -42,6 +43,20 @@ def prepare_keyboard_model():
         validation_data=(X_test_norm, y_test), verbose=1
     )
     model.save(f"out/keyboard_model_dropout.h5")
+
+    scaler_data = {
+        "mean_": scaler.mean_.tolist(),
+        "scale_": scaler.scale_.tolist(),
+        "var_": scaler.var_.tolist(),
+        "n_features_in_": int(scaler.n_features_in_),
+        "feature_names_in_": scaler.feature_names_in_.tolist() if hasattr(scaler, 'feature_names_in') else None,
+        "n_samples_seen_": int(scaler.n_samples_seen_)
+    }
+
+    with open('out/keyboard_scaler.json', 'w') as f:
+        json.dump(scaler_data, f, indent=2)
+
+    print("\nKeyboard model and scaler saved successfully!")
     return history
 
 def charts():

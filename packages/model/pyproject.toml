@@ -38,6 +38,7 @@ tensorflow-cpu-aws = { version = "^2.13.0", platform = "linux", markers = "platf
 matplotlib = "3.9.4"
 seaborn = "^0.13.2"
 ipdb = "^0.13.13"
+joblib = "^1.5.1"
 
 [tool.poetry.scripts]
 mm = "mouse_move_tf:main"
